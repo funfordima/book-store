@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-// import { AlertError } from '../../utils/styledComponents';
+import { AlertError } from '../../utils/styledComponents';
 
 const Form = styled.form`
   margin: 0 auto;
@@ -85,29 +85,35 @@ const InputBtnLogin = styled.input`
   }
 `;
 
-// interface LogInPageProps {
-//   onToggleErrorComponent: (isError: boolean) => void;
-//   language:string,
-//   langData:any,
-// }
+interface LogInPageProps {
+  setUser: (username: string) => void;
+  setUserFailure: (err: string) => void;
+  error: string;
+}
 
-const LogInForm: React.FC = () => {
+const LogInForm: React.FC<LogInPageProps> = ({ setUser, error, setUserFailure }) => {
   const [name, setName] = useState('');
 
   const handleChangeInputName = ({ target }: React.ChangeEvent<HTMLInputElement>): void => {
     setName(target.value);
-    // onToggleErrorComponent(false);
+    setUserFailure('');
   };
 
   const logInAccount = (event: React.ChangeEvent<HTMLFormElement>): void => {
     event.preventDefault();
-    // onFetch(email, password)
+
+    const regExp = /^.{4,16}$/;
+
+    if (!regExp.test(name)) {
+      setUserFailure('Username is not valid');
+    } else {
+      setUser(name);
+    }
   };
 
   return (
     <Form onSubmit={logInAccount}>
-      {/* {isError && <AlertError>{isError}</AlertError>} */}
-      {/* {isSuccess && <AlertSuccess>{isSuccess}</AlertSuccess>} */}
+      {error && <AlertError>{error}</AlertError>}
       <FormField>
         <InputText
           tab-index="0"
@@ -115,6 +121,7 @@ const LogInForm: React.FC = () => {
           placeholder='Enter name'
           type="text"
           autoComplete="off"
+          required
           onChange={handleChangeInputName}
           value={name}
         />

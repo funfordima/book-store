@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import LogInForm from '../../Components/LoginForm/LoginForm';
+import LogInForm from '../../Components/LoginForm/LoginFormContainer';
 
 const Container = styled.div`
   width: 100%;

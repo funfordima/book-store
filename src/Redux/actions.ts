@@ -1,7 +1,64 @@
-import { UpdateCurrentUser } from './interfaces';
-import { UPDATE_CURRENT_USER } from './consts';
+import { 
+  UpdateCurrentUser,
+  SetUserStarted,
+  User,
+  SetUserSuccess,
+  SetUserFailure,
+ } from './interfaces';
+import { 
+  UPDATE_CURRENT_USER, 
+  MAIN_URL,
+  SET_USER_STARTED,
+  SET_USER_SUCCESS,
+  SET_USER_FAILURE, 
+  // REMOVE_USER_FAILURE, 
+} from './consts';
 
-export const updateEventID = (value: boolean): UpdateCurrentUser => ({
+export const updateCurrentUser = (value: boolean): UpdateCurrentUser => ({
   type: UPDATE_CURRENT_USER,
   payload: value
 });
+
+export const setUserStarted = (): SetUserStarted => ({
+  type: SET_USER_STARTED,
+});
+
+export const setUserSuccess = (user: User): SetUserSuccess => ({
+  type: SET_USER_SUCCESS,
+  payload: user,
+});
+
+export const setUserFailure = (error: string): SetUserFailure => ({
+  type: SET_USER_FAILURE,
+  payload: error,
+});
+
+// export const removeUserFailure = (error: string): SetUserFailure => ({
+//   type: SET_USER_FAILURE,
+//   payload: error,
+// });
+
+export const setUser = (username: string) => (dispatch: any) => {
+  dispatch(setUserStarted());
+
+  fetch(`${MAIN_URL}signin`, {
+    method: 'POST',
+    body: JSON.stringify({
+      username
+    }),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+  .then((res) => res.json())
+  .then((json) => {
+    dispatch(setUserSuccess(json));
+    console.log(json);
+    localStorage.setItem('token', json.token);
+    dispatch(updateCurrentUser(true));
+  })
+  .catch((error) => {
+    dispatch(setUserFailure(error.message));
+    dispatch(updateCurrentUser(false));
+  });
+};
