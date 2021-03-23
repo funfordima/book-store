@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
+import { Redirect } from 'react-router-dom';
 import LogInForm from '../../Components/LoginForm/LoginFormContainer';
+import { CATALOG_ROUTE } from '../../utils/constants';
 
 const Container = styled.div`
   width: 100%;
@@ -31,7 +33,11 @@ const Title = styled.h1`
   text-align: center;
 `;
 
-const LoginPage: React.FC = () => {
+interface LoginPageProps {
+  isAuth: boolean;
+}
+
+const LoginPage: React.FC<LoginPageProps> = ({ isAuth }) => {
   const addBodyClass = (className: string): void =>
     document.body.classList.add(className);
   const removeBodyClass = (className: string): void =>
@@ -46,12 +52,19 @@ const LoginPage: React.FC = () => {
   }, []);
 
   return (
-    <Container>
-      <Title>
-        JS Band Store
-      </Title>
-      <LogInForm />
-    </Container>
+    <>
+      {isAuth
+        ? <Redirect to={CATALOG_ROUTE} />
+        : (
+          <Container>
+            <Title>
+              JS Band Store
+            </Title>
+            <LogInForm />
+          </Container>
+        )
+      }
+    </>
   );
 };
 

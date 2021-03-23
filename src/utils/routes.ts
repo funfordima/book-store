@@ -1,6 +1,6 @@
 import CartPage from '../Pages/Cart/CartPage';
-import CatalogPage from '../Pages/Catalog/CatalogPage';
-import LoginPage from '../Pages/Login/LoginPage';
+import CatalogPage from '../Pages/Catalog/CatalogPageContainer';
+import LoginPage from '../Pages/Login/LoginPageContainer';
 import NotFoundPage from '../Pages/NotFound/NotFoundPage';
 import { LOGIN_ROUTE, CART_ROUTE, CATALOG_ROUTE, NOTFOUND_ROUTE } from './constants';
 import { Path } from '../interfaces';
@@ -23,7 +23,7 @@ export const authRoutes: Array<Path> = [
 export const publicRoutes: Array<Path> = [
   {
     path: '/',
-    Component: LoginPage,
+    Component: CatalogPage,
   },
   {
     path: LOGIN_ROUTE,

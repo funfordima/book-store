@@ -4,6 +4,7 @@ import LoginForm from './LoginForm';
 import { State } from '../../Redux/interfaces';
 
 const mapStateToProps = (state: State) => ({
+  isLoading: state.isLoading,
   error: state.error,
 });
 

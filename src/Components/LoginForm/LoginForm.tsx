@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { AlertError } from '../../utils/styledComponents';
+import Loader from '../Loader/Loader';
 
 const Form = styled.form`
   margin: 0 auto;
@@ -89,9 +90,10 @@ interface LogInPageProps {
   setUser: (username: string) => void;
   setUserFailure: (err: string) => void;
   error: string;
+  isLoading: boolean;
 }
 
-const LogInForm: React.FC<LogInPageProps> = ({ setUser, error, setUserFailure }) => {
+const LogInForm: React.FC<LogInPageProps> = ({ setUser, error, setUserFailure, isLoading }) => {
   const [name, setName] = useState('');
 
   const handleChangeInputName = ({ target }: React.ChangeEvent<HTMLInputElement>): void => {
@@ -112,29 +114,36 @@ const LogInForm: React.FC<LogInPageProps> = ({ setUser, error, setUserFailure })
   };
 
   return (
-    <Form onSubmit={logInAccount}>
-      {error && <AlertError>{error}</AlertError>}
-      <FormField>
-        <InputText
-          tab-index="0"
-          name="username"
-          placeholder='Enter name'
-          type="text"
-          autoComplete="off"
-          required
-          onChange={handleChangeInputName}
-          value={name}
-        />
-      </FormField>
-      <FormOptions>
-        <InputBtnLogin
-          tab-index="0"
-          type="submit"
-          value='Login'
-          name="login"
-        />
-      </FormOptions>
-    </Form>
+    <>
+      {isLoading
+        ? <Loader />
+        : (
+          <Form onSubmit={logInAccount}>
+            {error && <AlertError>{error}</AlertError>}
+            <FormField>
+              <InputText
+                tab-index="0"
+                name="username"
+                placeholder='Enter name'
+                type="text"
+                autoComplete="off"
+                required
+                onChange={handleChangeInputName}
+                value={name}
+              />
+            </FormField>
+            <FormOptions>
+              <InputBtnLogin
+                tab-index="0"
+                type="submit"
+                value='Login'
+                name="login"
+              />
+            </FormOptions>
+          </Form>
+        )
+      }
+    </>
   );
 };
 
