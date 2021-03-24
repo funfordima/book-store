@@ -4,6 +4,7 @@ import { Redirect } from 'react-router-dom';
 import UserBar from '../../Components/UserBar/UserBarContainer';
 import Header from '../../Components/Header/Header';
 import MainSearch from '../../Components/MainSearch/MainSearchContainer';
+import Gallery from '../../Components/Gallery/Gallery';
 
 const Container = styled.div`
   width: 100%;
@@ -50,6 +51,7 @@ const CatalogPage: React.FC<CatalogPageProps> = ({ isAuth, updateCurrentUser }) 
             <UserBar />
             <Header />
             <MainSearch />
+            <Gallery />
             <div> CatalogPage </div>
           </Wrapper>
         </Container>
