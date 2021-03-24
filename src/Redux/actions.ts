@@ -54,7 +54,14 @@ export const setUser = (username: string) => (dispatch: any) => {
   .then((json) => {
     dispatch(setUserSuccess(json));
     console.log(json);
+    const currentUser = {
+      username: json.username,
+      avatar: json.avatar,
+    };
+
     localStorage.setItem('token', json.token);
+    localStorage.setItem('currentUser', JSON.stringify(currentUser));
+    
     dispatch(updateCurrentUser(true));
   })
   .catch((error) => {

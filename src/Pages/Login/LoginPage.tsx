@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { Redirect } from 'react-router-dom';
 import LogInForm from '../../Components/LoginForm/LoginFormContainer';
@@ -38,18 +38,20 @@ interface LoginPageProps {
 }
 
 const LoginPage: React.FC<LoginPageProps> = ({ isAuth }) => {
-  const addBodyClass = (className: string): void =>
-    document.body.classList.add(className);
-  const removeBodyClass = (className: string): void =>
-    document.body.classList.remove(className);
+  // const addBodyClass = (className: string): void =>
+  //   document.body.classList.add(className);
+  // const removeBodyClass = (className: string): void =>
+  //   document.body.classList.remove(className);
 
-  useEffect(() => {
-    addBodyClass('body');
+  // useEffect(() => {
+  //   addBodyClass('body');
 
-    return () => {
-      removeBodyClass('body');
-    };
-  }, []);
+  //   return () => {
+  //     removeBodyClass('body');
+  //   };
+  // }, []);
+
+  console.log('1');
 
   return (
     <>
