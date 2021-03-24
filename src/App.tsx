@@ -1,12 +1,19 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
 import reducer from './Redux/reducers';
 import AppRouter from './Components/AppRouter/AppRouterContainer';
 import './App.scss';
 
-const store = createStore(reducer);
+const store = createStore(
+  reducer,
+  composeWithDevTools(
+    applyMiddleware(thunk),
+  )
+);
 
 const App: React.FC = () => (
   <Provider store={store}>
