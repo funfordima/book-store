@@ -101,13 +101,19 @@ export const fetchBooks = (token: string) => (dispatch: any) => {
       'Content-Type': 'application/json'
     }
   })
-  .then((res) => res.json())
+  .then((res) => {
+    if (!res.ok) {
+      localStorage.clear();
+      throw new Error('Unauthorized');
+    }
+
+    return res.json();
+  })
   .then((json) => {
-    console.log(json);
     dispatch(getBookSuccess(json));
   })
   .catch((error) => {
-    console.log(error);
+    dispatch(updateCurrentUser(false));
     dispatch(getBookFailure(error.message));
   });
 };

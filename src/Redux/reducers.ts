@@ -12,12 +12,14 @@ import {
  } from './consts';
 
 const defaultState = {
-  isAuth: false,
+  isAuth: !!localStorage.getItem('token'),
   isLoading: false,
   error: '',
   user: {} as User,
   searchBook: '',
   books: [] as Book[],
+  fetchBookErr: '',
+  isLoad: false,
 };
 
 const reducer = (state = defaultState, action: any): State => {
@@ -71,8 +73,8 @@ const reducer = (state = defaultState, action: any): State => {
     case GET_BOOK_STARTED: {
       return {
         ...state,
-        isLoading: true,
-        error: '',
+        isLoad: true,
+        fetchBookErr: '',
       }
     }
 
@@ -80,15 +82,15 @@ const reducer = (state = defaultState, action: any): State => {
       return {
         ...state,
         books: action.payload,
-        isLoading: false,
+        isLoad: false,
       }
     }
 
     case GET_BOOK_FAILURE: {
       return {
         ...state,
-        isLoading: false,
-        error: action.payload,
+        isLoad: true,
+        fetchBookErr: action.payload,
       }
     }
 

@@ -37,37 +37,20 @@ interface LoginPageProps {
   isAuth: boolean;
 }
 
-const LoginPage: React.FC<LoginPageProps> = ({ isAuth }) => {
-  // const addBodyClass = (className: string): void =>
-  //   document.body.classList.add(className);
-  // const removeBodyClass = (className: string): void =>
-  //   document.body.classList.remove(className);
-
-  // useEffect(() => {
-  //   addBodyClass('body');
-
-  //   return () => {
-  //     removeBodyClass('body');
-  //   };
-  // }, []);
-
-  console.log('1');
-
-  return (
-    <>
-      {isAuth
-        ? <Redirect to={CATALOG_ROUTE} />
-        : (
-          <Container>
-            <Title>
-              JS Band Store
+const LoginPage: React.FC<LoginPageProps> = ({ isAuth }) => (
+  <>
+    {isAuth
+      ? <Redirect to={CATALOG_ROUTE} />
+      : (
+        <Container>
+          <Title>
+            JS Band Store
             </Title>
-            <LogInForm />
-          </Container>
-        )
-      }
-    </>
-  );
-};
+          <LogInForm />
+        </Container>
+      )
+    }
+  </>
+);
 
 export default LoginPage;

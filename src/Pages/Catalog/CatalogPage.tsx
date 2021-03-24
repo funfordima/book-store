@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { Redirect } from 'react-router-dom';
 import UserBar from '../../Components/UserBar/UserBarContainer';
 import Header from '../../Components/Header/Header';
 import MainSearch from '../../Components/MainSearch/MainSearchContainer';
 import Gallery from '../../Components/Gallery/GalleryContainer';
+import { LOGIN_ROUTE } from '../../utils/constants';
 
 const Container = styled.div`
   width: 100%;
@@ -37,32 +38,23 @@ const Wrapper = styled.div`
 
 interface CatalogPageProps {
   isAuth: boolean;
-  updateCurrentUser: (param: boolean) => void;
 }
 
-const CatalogPage: React.FC<CatalogPageProps> = ({ isAuth, updateCurrentUser }) => {
-  useEffect(() => {
-    if (localStorage.getItem('token')) {
-      updateCurrentUser(true);
+const CatalogPage: React.FC<CatalogPageProps> = ({ isAuth }) => (
+  <>
+    {isAuth
+      ? <Container>
+        <Wrapper>
+          <UserBar />
+          <Header />
+          <MainSearch />
+          <Gallery />
+          <div> CatalogPage </div>
+        </Wrapper>
+      </Container>
+      : <Redirect to={LOGIN_ROUTE} />
     }
-  }, [updateCurrentUser]);
-
-  return (
-    <>
-      {isAuth
-        ? <Container>
-          <Wrapper>
-            <UserBar />
-            <Header />
-            <MainSearch />
-            <Gallery />
-            <div> CatalogPage </div>
-          </Wrapper>
-        </Container>
-        : <Redirect to="/login" />
-      }
-    </>
-  );
-};
+  </>
+);
 
 export default CatalogPage;

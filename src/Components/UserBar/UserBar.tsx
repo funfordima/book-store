@@ -105,8 +105,10 @@ const UserBar: React.FC<UserBarProps> = ({ currentUser }) => {
   if (!username) {
     const user = JSON.parse(String(localStorage.getItem('currentUser'))) as User;
 
-    username = user.username;
-    avatar = user.avatar;
+    if (user) {
+      username = user.username;
+      avatar = user.avatar;
+    }
   }
 
   return (

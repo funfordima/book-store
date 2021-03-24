@@ -23,6 +23,8 @@ export interface State {
   user: User,
   searchBook: string,
   books: Book[],
+  fetchBookErr: string,
+  isLoad: boolean,
 }
 
 export interface UpdateCurrentUser {

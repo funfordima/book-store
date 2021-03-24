@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
+import { Redirect } from 'react-router-dom';
 import ContentGallery from './ContentGallery/ContentGalleryContainer';
 import Loader from '../Loader/Loader';
-import { AlertError } from '../../utils/styledComponents';
+import { LOGIN_ROUTE } from '../../utils/constants';
 
 const Main = styled.main`
   margin: 1rem;
@@ -22,11 +23,11 @@ const Container = styled.div`
 
 interface GalleryProps {
   fetchBooks: (token: string) => void;
-  isLoading: boolean;
+  isLoad: boolean;
   error: string;
 }
 
-const Gallery: React.FC<GalleryProps> = ({ fetchBooks, isLoading, error }) => {
+const Gallery: React.FC<GalleryProps> = ({ fetchBooks, isLoad, error }) => {
   useEffect(() => {
     const token = localStorage.getItem('token');
 
@@ -35,14 +36,16 @@ const Gallery: React.FC<GalleryProps> = ({ fetchBooks, isLoading, error }) => {
     }
   }, [fetchBooks]);
 
+  console.log(error);
+
   return (
     <>
-      {isLoading
+      {isLoad
         ? (
           <>
             <Loader />
             {error
-              && <AlertError>{error}</AlertError>}
+              && <Redirect to={LOGIN_ROUTE} />}
           </>
         )
         : (<Main>
