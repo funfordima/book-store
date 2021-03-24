@@ -4,14 +4,14 @@ import { NavLink } from 'react-router-dom';
 import { Book } from '../../../Redux/interfaces';
 import { CATALOG_ROUTE } from '../../../utils/constants';
 
-const Link = styled(NavLink)`
-  margin: 10px 10px 10px 0;
+const Card = styled.div`
+  margin: 1rem 1rem 1rem 0;
   color: #0d6efd;
   text-decoration: underline;
 `;
 
 const Container = styled.div`
-  width: 250px;
+  width: 25rem;
   color: rgba(0, 0, 0, 0.87);
   background-color: #fff;
   border-radius: 4px;
@@ -33,8 +33,6 @@ const Button = styled.div`
   background-color: transparent;
   border: 0;
   border-radius: 0;
-  cursor: pointer;
-  outline: 0;
   position: relative;
   user-select: none;
   vertical-align: middle;
@@ -42,48 +40,73 @@ const Button = styled.div`
 
 const BookImage = styled.div<{ cover: string, title: string }>`
   width: 100%;
-  height: 140px;
-  padding-top: 56.25%;
+  height: 14rem;
   display: block;
-  background-size: cover;
+  background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
   background-image: ${({ cover }) => `url(${cover})`};
 `;
 
 const BookDescriptionContainer = styled.div`
-  padding: 16px;
+  padding: 1.6rem;
 `;
 
 const BookTitle = styled.h2`
-  margin-bottom: 0.35em;
-  font-size: 1.5rem;
+  margin-bottom: 0.8rem;
+  width: 100%;
+  height: 3rem;
+  font-size: 2rem;
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
   font-weight: 400;
-  line-height: 1.4;
-  letter-spacing: 0em;
+  line-height: 1.5;
+  color: rgba(0, 0, 0, .87);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap; 
 `;
 
 const BookAuthor = styled.h3`
-font-size: 1rem;
-font-family: "Roboto", "Helvetica", "Arial", sans-serif;
-font-weight: 400;
-line-height: 1.43;
-letter-spacing: 0.01em;
-color: rgba(0, 0, 0, 0.54);
+  font-size: 1.4rem;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 400;
+  line-height: 1.5;
+  color: rgba(0, 0, 0, 0.54);
 `;
 
 const DetailBook = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 `;
 
 const PriceContainer = styled.span`
   color: #0e037c;
-  font-size: 1rem;
-  font-weight: bold;
+  font-size: 1.6rem;
+  font-weight: 700;
   line-height: 0.5;
 `;
 
-const ViewButton = styled.button`
+const ViewButton = styled(NavLink)`
+  padding: 0.3rem 0.7rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 1.2rem;
+  line-height: 1.5;
+  font-weight: 400;
+  color: #fff;
+  border: 1px solid #95a5a6;
+  background-color: #95a5a6;
+  border-radius: .4rem;
+  user-select: none;
+  cursor: pointer;
+  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+
+  &:hover {
+    background-color: #809395;
+    border-color: #798d8f;
+  }
 `;
 
 interface ContentGalleryProps {
@@ -93,7 +116,7 @@ interface ContentGalleryProps {
 const ContentGallery: React.FC<ContentGalleryProps> = ({ books }) => (
   <>
     {books.map(({ id, cover, title, author, price }) => (
-      <Link to={`${CATALOG_ROUTE}/:id`} key={id}>
+      <Card key={id}>
         <Container>
           <Button tab-index='0'>
             <BookImage
@@ -109,16 +132,16 @@ const ContentGallery: React.FC<ContentGalleryProps> = ({ books }) => (
               </BookAuthor>
               <DetailBook>
                 <PriceContainer>
-                  {price}
+                  {`${price}$`}
                 </PriceContainer>
-                <ViewButton>
+                <ViewButton to={`${CATALOG_ROUTE}/${id}`} >
                   View
                 </ViewButton>
               </DetailBook>
             </BookDescriptionContainer>
           </Button>
         </Container>
-      </Link>
+      </Card>
     ))}
   </>
 );

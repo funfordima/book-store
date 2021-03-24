@@ -4,21 +4,25 @@ import { Redirect } from 'react-router-dom';
 import UserBar from '../../Components/UserBar/UserBarContainer';
 import Header from '../../Components/Header/Header';
 import MainSearch from '../../Components/MainSearch/MainSearchContainer';
-import Gallery from '../../Components/Gallery/Gallery';
+import Gallery from '../../Components/Gallery/GalleryContainer';
 
 const Container = styled.div`
   width: 100%;
-  padding-right: 15px;
-  padding-left: 15px;
+  padding-right: 1.5rem;
+  padding-left: 1.5rem;
   margin-right: auto;
   margin-left: auto;
 
-  @media (min-width: 768px) {
-    max-width: 720px;
+  @media (max-width: 992px) {
+    max-width: 93rem;
   }
 
-  @media (min-width: 576px) {
-    max-width: 540px;
+  @media (max-width: 768px) {
+    max-width: 72rem;
+  }
+
+  @media (max-width: 576px) {
+    max-width: 54rem;
   }
 `;
 

@@ -19,6 +19,15 @@ const Title = styled.h1`
   font-size: 4.5rem;
   font-weight: 400;
   color: #ecf0f1;
+
+  @media (max-width: 505px) {
+    font-size: 3rem;
+  }
+
+  @media (max-width: 415px) {
+    font-size: 2rem;
+    white-space: nowrap;
+  }
 `;
 
 const CartContainer = styled(NavLink)`
@@ -46,10 +55,22 @@ const CartTitle = styled.h3`
   margin-right: 1rem;
   font-size: 2.5rem;
   font-weight: 300;
+
+  @media (max-width: 505px) {
+    font-size: 2rem;
+  }
+
+  @media (max-width: 415px) {
+    font-size: 1.4rem;
+  }
 `;
 
 const CountGoods = styled.span`
   display: inline-block;
+
+  @media (max-width: 415px) {
+    white-space: nowrap;
+  }
 `;
 
 const Subtitle = styled.p`
@@ -63,6 +84,14 @@ const Subtitle = styled.p`
   color: #fff;
   border: 1px solid #dee2e6;
   border-top: 0;
+
+  @media (max-width: 505px) {
+    font-size: 2rem;
+  }
+
+  @media (max-width: 415px) {
+    font-size: 1.4rem;
+  }
 `;
 
 const Header: React.FC = () => (

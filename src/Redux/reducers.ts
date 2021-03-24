@@ -1,4 +1,4 @@
-import { State, User } from './interfaces';
+import { State, User, Book } from './interfaces';
 import { 
   UPDATE_CURRENT_USER,
   SET_USER_STARTED,
@@ -6,6 +6,9 @@ import {
   SET_USER_FAILURE, 
   REMOVE_USER_FAILURE, 
   SET_SEARCH_BOOK, 
+  GET_BOOK_STARTED, 
+  GET_BOOK_SUCCESS, 
+  GET_BOOK_FAILURE, 
  } from './consts';
 
 const defaultState = {
@@ -14,6 +17,7 @@ const defaultState = {
   error: '',
   user: {} as User,
   searchBook: '',
+  books: [] as Book[],
 };
 
 const reducer = (state = defaultState, action: any): State => {
@@ -61,6 +65,30 @@ const reducer = (state = defaultState, action: any): State => {
       return {
         ...state,
         searchBook: action.payload,
+      }
+    }
+
+    case GET_BOOK_STARTED: {
+      return {
+        ...state,
+        isLoading: true,
+        error: '',
+      }
+    }
+
+    case GET_BOOK_SUCCESS: {
+      return {
+        ...state,
+        books: action.payload,
+        isLoading: false,
+      }
+    }
+
+    case GET_BOOK_FAILURE: {
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload,
       }
     }
 

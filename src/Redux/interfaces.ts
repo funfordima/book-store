@@ -4,12 +4,25 @@ export interface User {
   token: string,
 }
 
+export interface Book {
+  id: string,
+  count: number,
+  price: number,
+  title: string,
+  author: string,
+  level: string,
+  description: string,
+  cover: string,
+  tags: string[],
+}
+
 export interface State {
   isAuth: boolean,
   isLoading: boolean,
   error: string,
   user: User,
   searchBook: string,
+  books: Book[],
 }
 
 export interface UpdateCurrentUser {
@@ -36,14 +49,16 @@ export interface SetSearchBook {
   payload: string,
 }
 
-export interface Book {
-  id: string,
-  count: number,
-  price: number,
-  title: string,
-  author: string,
-  level: string,
-  description: string,
-  cover: string,
-  tags: string[],
+export interface GetBookStarted {
+  type: string,
+}
+
+export interface GetBookSuccess {
+  type: string,
+  payload: Book[],
+}
+
+export interface GetBookFailure {
+  type: string,
+  payload: string,
 }

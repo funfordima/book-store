@@ -5,3 +5,6 @@ export const SET_USER_FAILURE = 'SET_USER_FAILURE';
 export const REMOVE_USER_FAILURE = 'REMOVE_USER_FAILURE';
 export const MAIN_URL = 'https://js-band-store-api.glitch.me/';
 export const SET_SEARCH_BOOK = 'SET_SEARCH_BOOK';
+export const GET_BOOK_STARTED = 'GET_BOOK_STARTED';
+export const GET_BOOK_SUCCESS = 'GET_BOOK_SUCCESS';
+export const GET_BOOK_FAILURE = 'GET_BOOK_FAILURE';

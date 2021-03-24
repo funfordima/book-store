@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
-import { ReactComponent as BtnHidden } from '../../public/close.svg';
 import { ReactComponent as SearchSvg } from '../../public/search.svg';
 
 const Form = styled.form`
@@ -8,7 +7,7 @@ const Form = styled.form`
   position: relative;
   z-index: 1;
   background: #fff;
-  padding: 16px 24px;
+  padding: 1.6rem 2.4rem;
   border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 `;
 
@@ -23,9 +22,9 @@ const InputWrapper = styled.div`
   position: relative;
 
   & svg {
-    width: 16px;
+    width: 1.6rem;
     left: auto;
-    right: 12px;
+    right: 1.2rem;
     position: absolute;
     top: 1rem;
     color: rgba(0, 0, 0, 0.16);
@@ -52,10 +51,10 @@ const Input = styled.input`
   box-sizing: border-box;
   position: relative;
   margin: 0;
-  padding: 7px 40px;
+  padding: 0.7rem 1rem 0.7rem 4rem;
   width: 100%;
-  font-size: 13px;
-  line-height: 20px;
+  font-size: 1.3rem;
+  line-height: 2rem;
   overflow: hidden;
   touch-action: manipulation;
   outline: none;
@@ -108,9 +107,6 @@ const MainSearch: React.FC<CityFilterSearchProps> = ({ searchBook, setSearchBook
             ref={inputRef}
           />
           <SearchSvg />
-          <BtnHidden
-            className='isHidden'
-          />
         </InputWrapper>
       </Label>
     </Form>

@@ -26,6 +26,11 @@ const AvatarContainer = styled.div`
   user-select: none;
   border-radius: 50%;
   justify-content: center;
+
+  @media (max-width: 415px) {
+    width: 3rem;
+    height: 3rem;
+  }
 `;
 
 const AvatarImage = styled.img`
@@ -42,6 +47,10 @@ const UserName = styled.h4`
   font-size: 2.4rem;
   font-weight: 300;
   line-height: 1.2;
+
+  @media (max-width: 415px) {
+    font-size: 2rem;
+  }
 `;
 
 const SignOutBtn = styled.button`
@@ -78,6 +87,11 @@ const SignOutBtn = styled.button`
     line-height: 1.5;
     cursor: pointer;
     user-select: none;
+  }
+
+  @media (max-width: 415px) {
+    padding: 0 0.2rem;
+    margin-right: 0.2rem;
   }
 `;
 
