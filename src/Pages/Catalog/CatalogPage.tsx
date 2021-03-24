@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { Redirect } from 'react-router-dom';
 import UserBar from '../../Components/UserBar/UserBarContainer';
+import Header from '../../Components/Header/Header';
 
 const Container = styled.div`
   width: 100%;
@@ -46,6 +47,7 @@ const CatalogPage: React.FC<CatalogPageProps> = ({ isAuth, updateCurrentUser }) 
         ? <Container>
           <Wrapper>
             <UserBar />
+            <Header />
             <div> CatalogPage </div>
           </Wrapper>
         </Container>
