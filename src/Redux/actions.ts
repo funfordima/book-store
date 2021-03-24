@@ -3,7 +3,8 @@ import {
   SetUserStarted,
   User,
   SetUserSuccess,
-  SetUserFailure,
+  SetUserFailure, 
+  SetSearchBook, 
  } from './interfaces';
 import { 
   UPDATE_CURRENT_USER, 
@@ -11,7 +12,7 @@ import {
   SET_USER_STARTED,
   SET_USER_SUCCESS,
   SET_USER_FAILURE, 
-  // REMOVE_USER_FAILURE, 
+  SET_SEARCH_BOOK,  
 } from './consts';
 
 export const updateCurrentUser = (value: boolean): UpdateCurrentUser => ({
@@ -32,11 +33,6 @@ export const setUserFailure = (error: string): SetUserFailure => ({
   type: SET_USER_FAILURE,
   payload: error,
 });
-
-// export const removeUserFailure = (error: string): SetUserFailure => ({
-//   type: SET_USER_FAILURE,
-//   payload: error,
-// });
 
 export const setUser = (username: string) => (dispatch: any) => {
   dispatch(setUserStarted());
@@ -61,7 +57,7 @@ export const setUser = (username: string) => (dispatch: any) => {
 
     localStorage.setItem('token', json.token);
     localStorage.setItem('currentUser', JSON.stringify(currentUser));
-    
+
     dispatch(updateCurrentUser(true));
   })
   .catch((error) => {
@@ -69,3 +65,8 @@ export const setUser = (username: string) => (dispatch: any) => {
     dispatch(updateCurrentUser(false));
   });
 };
+
+export const setSearchBook = (inputValue: string): SetSearchBook => ({
+  type: SET_SEARCH_BOOK,
+  payload: inputValue,
+});

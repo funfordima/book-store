@@ -4,3 +4,4 @@ export const SET_USER_SUCCESS = 'SET_USER_SUCCESS';
 export const SET_USER_FAILURE = 'SET_USER_FAILURE';
 export const REMOVE_USER_FAILURE = 'REMOVE_USER_FAILURE';
 export const MAIN_URL = 'https://js-band-store-api.glitch.me/';
+export const SET_SEARCH_BOOK = 'SET_SEARCH_BOOK';

@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Redirect } from 'react-router-dom';
 import UserBar from '../../Components/UserBar/UserBarContainer';
 import Header from '../../Components/Header/Header';
+import MainSearch from '../../Components/MainSearch/MainSearchContainer';
 
 const Container = styled.div`
   width: 100%;
@@ -48,6 +49,7 @@ const CatalogPage: React.FC<CatalogPageProps> = ({ isAuth, updateCurrentUser }) 
           <Wrapper>
             <UserBar />
             <Header />
+            <MainSearch />
             <div> CatalogPage </div>
           </Wrapper>
         </Container>

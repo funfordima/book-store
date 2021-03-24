@@ -5,6 +5,7 @@ import {
   SET_USER_SUCCESS,
   SET_USER_FAILURE, 
   REMOVE_USER_FAILURE, 
+  SET_SEARCH_BOOK, 
  } from './consts';
 
 const defaultState = {
@@ -12,6 +13,7 @@ const defaultState = {
   isLoading: false,
   error: '',
   user: {} as User,
+  searchBook: '',
 };
 
 const reducer = (state = defaultState, action: any): State => {
@@ -52,6 +54,13 @@ const reducer = (state = defaultState, action: any): State => {
         ...state,
         isLoading: true,
         error: '',
+      }
+    }
+
+    case SET_SEARCH_BOOK: {
+      return {
+        ...state,
+        searchBook: action.payload,
       }
     }
 

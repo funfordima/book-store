@@ -9,6 +9,7 @@ export interface State {
   isLoading: boolean,
   error: string,
   user: User,
+  searchBook: string,
 }
 
 export interface UpdateCurrentUser {
@@ -26,6 +27,11 @@ export interface SetUserSuccess {
 }
 
 export interface SetUserFailure {
+  type: string,
+  payload: string,
+}
+
+export interface SetSearchBook {
   type: string,
   payload: string,
 }
