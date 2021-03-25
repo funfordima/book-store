@@ -6,6 +6,7 @@ import Header from '../../Components/Header/Header';
 import MainSearch from '../../Components/MainSearch/MainSearchContainer';
 import Gallery from '../../Components/Gallery/GalleryContainer';
 import Menu from '../../Components/Menu/MenuContainer';
+import Footer from '../../Components/Footer/Footer';
 import { LOGIN_ROUTE } from '../../utils/constants';
 
 const Container = styled.div`
@@ -60,7 +61,7 @@ const CatalogPage: React.FC<CatalogPageProps> = ({ isAuth }) => (
             <Menu />
           </ControlBar>
           <Gallery />
-          <div> CatalogPage </div>
+          <Footer />
         </Wrapper>
       </Container>
       : <Redirect to={LOGIN_ROUTE} />

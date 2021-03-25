@@ -45,3 +45,23 @@ body {
     border-top-width: 1px;
   }
 }
+
+@keyframes hvr-buzz {
+  50% {
+    transform: translateX(2px) rotate(2deg);
+  }
+  100% {
+    transform: translateX(-2px) rotate(-2deg);
+  }
+}
+
+.hvr-buzz {
+  transform: perspective(1px) translateZ(0);
+
+  &:hover {
+    animation-name: hvr-buzz;
+    animation-duration: 0.15s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+  }
+}
