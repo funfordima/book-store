@@ -12,6 +12,8 @@
     "@types/react-dom": "^17.0.3",
     "@types/react-router": "^5.1.12",
     "@types/react-router-dom": "^5.1.7",
+    "husky": "^5.2.0",
+    "lint-staged": "^10.5.4",
     "node-sass": "^5.0.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -29,6 +31,11 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npx tsc"
+    }
   },
   "eslintConfig": {
     "extends": [
