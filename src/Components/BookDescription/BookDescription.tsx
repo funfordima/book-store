@@ -2,9 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
 import { ReactComponent as TagSvg } from '../../public/ticket.svg';
+import Price from '../Price/Price';
 import { Book } from '../../Redux/interfaces';
 
 const Container = styled.div`
+  padding: 2rem;
   display: flex;
   background-color: #fff;
   color: #000;
@@ -134,6 +136,7 @@ const BookDescription: React.FC<BookDescriptionProps> = ({ books }) => {
           {tags.join(', ')}
         </AdditionalInfo>
       </ContentContainer>
+      <Price book={book as Book} />
     </Container>
   );
 };
