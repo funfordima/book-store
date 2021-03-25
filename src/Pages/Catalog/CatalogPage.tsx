@@ -5,6 +5,7 @@ import UserBar from '../../Components/UserBar/UserBarContainer';
 import Header from '../../Components/Header/Header';
 import MainSearch from '../../Components/MainSearch/MainSearchContainer';
 import Gallery from '../../Components/Gallery/GalleryContainer';
+import Menu from '../../Components/Menu/MenuContainer';
 import { LOGIN_ROUTE } from '../../utils/constants';
 
 const Container = styled.div`
@@ -36,6 +37,13 @@ const Wrapper = styled.div`
   border-radius: .5rem;
 `;
 
+const ControlBar = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  background-color: #fff;
+`;
+
 interface CatalogPageProps {
   isAuth: boolean;
 }
@@ -47,7 +55,10 @@ const CatalogPage: React.FC<CatalogPageProps> = ({ isAuth }) => (
         <Wrapper>
           <UserBar />
           <Header />
-          <MainSearch />
+          <ControlBar>
+            <MainSearch />
+            <Menu />
+          </ControlBar>
           <Gallery />
           <div> CatalogPage </div>
         </Wrapper>
