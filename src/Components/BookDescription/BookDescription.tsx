@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
 import { ReactComponent as TagSvg } from '../../public/ticket.svg';
-import Price from '../Price/Price';
+import Price from '../Price/PriceContainer';
 import { Book } from '../../Redux/interfaces';
 
 const Container = styled.div`
@@ -10,11 +10,11 @@ const Container = styled.div`
   display: flex;
   background-color: #fff;
   color: #000;
-  border-radius: 9px;
+  border-radius: 0.9rem;
 `;
 
 const ImageContainer = styled.div`
-  padding: 15px;
+  padding: 1.5rem;
   width: 50rem;
   height: 50rem;
   display: flex;
@@ -33,7 +33,7 @@ const Image = styled.img`
 
 const ContentContainer = styled.div`
   margin: 2rem 2rem 0 2.9rem;
-  width: 35.1rem;
+  width: 35rem;
 `;
 
 const BookTitle = styled.h3`

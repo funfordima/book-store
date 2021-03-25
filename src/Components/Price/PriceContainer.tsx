@@ -1,9 +1,14 @@
 import { connect } from 'react-redux';
 import Price from './Price';
 import { State } from '../../Redux/interfaces';
+import { setBooksInCart } from '../../Redux/actions';
 
 const mapStateToProps = (state: State) => ({
-  books: state.books,
+  booksInCart: state.booksInCart,
 });
 
-export default connect(mapStateToProps)(Price);
+const mapDispatchToProps = {
+  setBooksInCart,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Price);

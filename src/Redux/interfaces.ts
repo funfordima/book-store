@@ -26,6 +26,7 @@ export interface State {
   fetchBookErr: string,
   isLoad: boolean,
   filteredBooks: Book[] | null,
+  booksInCart: string,
 }
 
 export interface UpdateCurrentUser {
@@ -69,4 +70,9 @@ export interface GetBookFailure {
 export interface SetBooksFiltered {
   type: string,
   payload: Book[] | null,
+}
+
+export interface SetBooksInCart {
+  type: string,
+  payload: string,
 }

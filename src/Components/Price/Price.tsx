@@ -11,21 +11,21 @@ const Container = styled.div`
   flex-direction: column;
 `;
 
-const Row = styled.p`
+const Row = styled.div`
   width: 100%;
   margin: 0px;
-  padding: 20px;
+  padding: 2rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-radius: 4px;
+  border-radius: 0.4rem;
   background: #f6f6fb;
 `;
 
 const Span = styled.span`
   display: inline-flex;
   align-items: center;
-  font-size: 24px;
+  font-size: 2.4rem;
   font-weight: 400;
   color: #2c293b;
 `;
@@ -75,18 +75,22 @@ const AddBtn = styled.button`
 
 interface PriceProps {
   book: Book;
+  booksInCart: string;
+  setBooksInCart: (arg: string) => void;
 }
 
-const Price: React.FC<PriceProps> = ({ book }) => {
+const Price: React.FC<PriceProps> = ({ book, booksInCart, setBooksInCart }) => {
   const { price, count } = book;
   const [totalPrice, setTotalPrice] = useState(price);
 
   const calcTotalPrice = (arg: number) => {
-    setTotalPrice(() => price * arg);
+    setTotalPrice(() => (+(price * arg).toFixed(2)));
   };
 
   const handleClick = () => {
-    console.log(1);
+    const addBooks = `${totalPrice / price + +booksInCart}`
+    setBooksInCart(addBooks);
+    localStorage.setItem('booksInCart', addBooks);
   };
 
   return (

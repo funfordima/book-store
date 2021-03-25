@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Redirect } from 'react-router-dom';
 import UserBar from '../../Components/UserBar/UserBarContainer';
-import Header from '../../Components/Header/Header';
+import Header from '../../Components/Header/HeaderContainer';
 import MainSearch from '../../Components/MainSearch/MainSearchContainer';
 import Gallery from '../../Components/Gallery/GalleryContainer';
 import Menu from '../../Components/Menu/MenuContainer';

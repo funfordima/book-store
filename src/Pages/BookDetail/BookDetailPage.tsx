@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import UserBar from '../../Components/UserBar/UserBarContainer';
-import Header from '../../Components/Header/Header';
+import Header from '../../Components/Header/HeaderContainer';
 import BookDescription from '../../Components/BookDescription/BookDescriptionContainer';
 import Footer from '../../Components/Footer/Footer';
 

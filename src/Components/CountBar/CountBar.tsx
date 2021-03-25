@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 const Container = styled.div`
-  width: 94px;
-  height: 40px;
-  padding: 0 26px;
+  width: 9.4rem;
+  height: 4rem;
+  padding: 0 2.6rem;
   box-sizing: border-box;
   border: 1px solid #dfe1f0;
   border-radius: 2px;
@@ -13,7 +13,7 @@ const Container = styled.div`
 `;
 
 const QuantityDown = styled.span`
-  width: 26px;
+  width: 2.6rem;
   position: absolute;
   left: 0;
   top: 0;
@@ -27,8 +27,8 @@ const QuantityDown = styled.span`
     position: absolute;
     top: 50%;
     left: 50%;
-    height: 2px;
-    width: 8px;
+    height: 0.2rem;
+    width: 0.8rem;
     margin: -1px 0 0 -4px;
     background: #000;
   }
@@ -43,8 +43,8 @@ const QuantityUp = styled(QuantityDown)`
     position: absolute;
     top: 50%;
     left: 50%;
-    height: 8px;
-    width: 2px;
+    height: 0.8rem;
+    width: 0.2rem;
     margin: -4px 0 0 -1px;
     background: #000;
   }
@@ -53,9 +53,9 @@ const QuantityUp = styled(QuantityDown)`
 const Input = styled.input`
   display: block;
   width: 100%;
-  padding: 10px 0;
+  padding: 1rem 0;
   font-size: 1.4rem;
-  line-height: 18px;
+  line-height: 1.8rem;
   text-align: center;
   border: none;
   outline: none;

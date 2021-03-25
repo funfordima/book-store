@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 import { ReactComponent as CartEmptySvg } from '../../public/cart-empty.svg';
+import { ReactComponent as CartFullSvg } from '../../public/cart-full.svg';
 
 const HeaderElement = styled.header`
   margin-top: 1.5rem;
@@ -94,20 +95,27 @@ const Subtitle = styled.p`
   }
 `;
 
-const Header: React.FC = () => (
+interface HeaderProps {
+  booksInCart: string;
+}
+
+const Header: React.FC<HeaderProps> = ({ booksInCart }) => (
   <>
     <HeaderElement>
       <Title>
         JS Band Store
     </Title>
       <CartContainer to='/cart'>
-        <CartEmptySvg />
+        {booksInCart
+          ? <CartFullSvg />
+          : <CartEmptySvg />
+        }
         <CartTitle>
           cart
       </CartTitle>
         <CountGoods>
-          ( 5 )
-      </CountGoods>
+          {booksInCart ? `( ${booksInCart} )` : null}
+        </CountGoods>
       </CartContainer>
     </HeaderElement>
     <Subtitle>
