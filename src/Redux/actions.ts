@@ -9,6 +9,7 @@ import {
   GetBookStarted, 
   GetBookFailure, 
   GetBookSuccess, 
+  SetBooksFiltered, 
  } from './interfaces';
 import { 
   UPDATE_CURRENT_USER, 
@@ -20,6 +21,7 @@ import {
   GET_BOOK_STARTED, 
   GET_BOOK_SUCCESS, 
   GET_BOOK_FAILURE, 
+  SET_BOOK_FILTERED, 
 } from './consts';
 
 export const updateCurrentUser = (value: boolean): UpdateCurrentUser => ({
@@ -117,3 +119,8 @@ export const fetchBooks = (token: string) => (dispatch: any) => {
     dispatch(getBookFailure(error.message));
   });
 };
+
+export const setBooksFiltered = (books: Book[] | null): SetBooksFiltered => ({
+  type: SET_BOOK_FILTERED,
+  payload: books,
+});

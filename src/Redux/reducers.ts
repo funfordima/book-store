@@ -9,6 +9,7 @@ import {
   GET_BOOK_STARTED, 
   GET_BOOK_SUCCESS, 
   GET_BOOK_FAILURE, 
+  SET_BOOK_FILTERED, 
  } from './consts';
 
 const defaultState = {
@@ -20,6 +21,7 @@ const defaultState = {
   books: [] as Book[],
   fetchBookErr: '',
   isLoad: false,
+  filteredBooks: null,
 };
 
 const reducer = (state = defaultState, action: any): State => {
@@ -91,6 +93,13 @@ const reducer = (state = defaultState, action: any): State => {
         ...state,
         isLoad: true,
         fetchBookErr: action.payload,
+      }
+    }
+
+    case SET_BOOK_FILTERED: {
+      return {
+        ...state,
+        filteredBooks: action.payload as Book[] | null,
       }
     }
 

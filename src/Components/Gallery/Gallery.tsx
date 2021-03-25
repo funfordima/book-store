@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { Redirect } from 'react-router-dom';
-import ContentGallery from './ContentGallery/ContentGalleryContainer';
+import ContentGallery from './ContentGallery/ContentGallery';
 import Loader from '../Loader/Loader';
 import { LOGIN_ROUTE } from '../../utils/constants';
+import { Book } from '../../Redux/interfaces';
 
 const Main = styled.main`
   margin: 1rem;
@@ -25,9 +26,11 @@ interface GalleryProps {
   fetchBooks: (token: string) => void;
   isLoad: boolean;
   error: string;
+  books: Book[],
+  filteredBooks: Book[] | null,
 }
 
-const Gallery: React.FC<GalleryProps> = ({ fetchBooks, isLoad, error }) => {
+const Gallery: React.FC<GalleryProps> = ({ fetchBooks, isLoad, error, books, filteredBooks }) => {
   useEffect(() => {
     const token = localStorage.getItem('token');
 
@@ -35,8 +38,6 @@ const Gallery: React.FC<GalleryProps> = ({ fetchBooks, isLoad, error }) => {
       fetchBooks(token);
     }
   }, [fetchBooks]);
-
-  console.log(error);
 
   return (
     <>
@@ -50,9 +51,13 @@ const Gallery: React.FC<GalleryProps> = ({ fetchBooks, isLoad, error }) => {
         )
         : (<Main>
           <Container>
-            <ContentGallery />
+            {!!filteredBooks
+              ? <ContentGallery books={filteredBooks as unknown as Book[]} />
+              : <ContentGallery books={books} />
+            }
           </Container>
-        </Main>)
+        </Main>
+        )
       }
     </>
   );

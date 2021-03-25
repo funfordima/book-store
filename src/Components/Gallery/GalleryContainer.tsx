@@ -6,6 +6,8 @@ import { State } from '../../Redux/interfaces';
 const mapStateToProps = (state: State) => ({
   isLoad: state.isLoad,
   error: state.fetchBookErr,
+  books: state.books,
+  filteredBooks: state.filteredBooks,
 });
 
 const mapDispatchToProps = {

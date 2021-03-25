@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { ReactComponent as SearchSvg } from '../../public/search.svg';
+import { Book } from '../../Redux/interfaces';
 
 const Form = styled.form`
   flex: 0 0 auto;
@@ -77,13 +78,33 @@ const Input = styled.input`
 interface CityFilterSearchProps {
   searchBook: string;
   setSearchBook: (inputValue: string) => void;
+  books: Book[];
+  setBooksFiltered: (param: Book[] | null) => void;
 }
 
-const MainSearch: React.FC<CityFilterSearchProps> = ({ searchBook, setSearchBook }) => {
+const MainSearch: React.FC<CityFilterSearchProps> = ({ searchBook, setSearchBook, books, setBooksFiltered }) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleChangeInput = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setSearchBook(event.target.value);
+  };
+
+  const handleSubmit = (event: React.ChangeEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const filterBooks = books.filter(({ title }) => title.includes(searchBook));
+
+    console.log(filterBooks);
+
+    setBooksFiltered(filterBooks);
+  };
+
+  const handleSearchClick = () => {
+    const filterBooks = books.filter(({ title }) => title.includes(searchBook));
+
+    console.log(filterBooks);
+
+    setBooksFiltered(filterBooks);
   };
 
   useEffect(() => {
@@ -91,7 +112,7 @@ const MainSearch: React.FC<CityFilterSearchProps> = ({ searchBook, setSearchBook
   }, []);
 
   return (
-    <Form role='search'>
+    <Form role='search' onSubmit={handleSubmit}>
       <Label
         htmlFor='search-book'
       >
@@ -106,7 +127,7 @@ const MainSearch: React.FC<CityFilterSearchProps> = ({ searchBook, setSearchBook
             onChange={handleChangeInput}
             ref={inputRef}
           />
-          <SearchSvg />
+          <SearchSvg onClick={handleSearchClick} />
         </InputWrapper>
       </Label>
     </Form>
