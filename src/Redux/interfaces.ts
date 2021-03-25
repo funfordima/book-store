@@ -16,6 +16,11 @@ export interface Book {
   tags: string[],
 }
 
+export interface CartBooks {
+  id: string,
+  count: string,
+}
+
 export interface State {
   isAuth: boolean,
   isLoading: boolean,
@@ -26,7 +31,7 @@ export interface State {
   fetchBookErr: string,
   isLoad: boolean,
   filteredBooks: Book[] | null,
-  booksInCart: string,
+  booksInCart: CartBooks[],
 }
 
 export interface UpdateCurrentUser {
@@ -74,5 +79,5 @@ export interface SetBooksFiltered {
 
 export interface SetBooksInCart {
   type: string,
-  payload: string,
+  payload: CartBooks[],
 }

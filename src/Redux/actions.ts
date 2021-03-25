@@ -11,6 +11,7 @@ import {
   GetBookSuccess, 
   SetBooksFiltered, 
   SetBooksInCart, 
+  CartBooks, 
  } from './interfaces';
 import { 
   UPDATE_CURRENT_USER, 
@@ -127,7 +128,7 @@ export const setBooksFiltered = (books: Book[] | null): SetBooksFiltered => ({
   payload: books,
 });
 
-export const setBooksInCart = (arg: string): SetBooksInCart => ({
+export const setBooksInCart = (arg: CartBooks[]): SetBooksInCart => ({
   type: SET_BOOK_IN_CART,
   payload: arg,
 });

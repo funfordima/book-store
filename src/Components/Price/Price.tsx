@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { ReactComponent as CartSvg } from '../../public/cart-empty.svg';
 import CountBar from '../CountBar/CountBar';
-import { Book } from '../../Redux/interfaces';
+import { Book, CartBooks } from '../../Redux/interfaces';
 
 const Container = styled.div`
   padding-left: 2rem;
@@ -75,12 +75,12 @@ const AddBtn = styled.button`
 
 interface PriceProps {
   book: Book;
-  booksInCart: string;
-  setBooksInCart: (arg: string) => void;
+  booksInCart: CartBooks[];
+  setBooksInCart: (arg: CartBooks[]) => void;
 }
 
 const Price: React.FC<PriceProps> = ({ book, booksInCart, setBooksInCart }) => {
-  const { price, count } = book;
+  const { price, count, id } = book;
   const [totalPrice, setTotalPrice] = useState(price);
 
   const calcTotalPrice = (arg: number) => {
@@ -88,10 +88,14 @@ const Price: React.FC<PriceProps> = ({ book, booksInCart, setBooksInCart }) => {
   };
 
   const handleClick = () => {
-    const addBooks = `${totalPrice / price + +booksInCart}`
-    setBooksInCart(addBooks);
-    localStorage.setItem('booksInCart', addBooks);
+    const countBook = `${totalPrice / price}`;
+
+    setBooksInCart([...booksInCart, { id, count: countBook }]);
   };
+
+  useEffect(() => {
+    localStorage.setItem('booksInCart', JSON.stringify(booksInCart));
+  }, [booksInCart]);
 
   return (
     <Container>

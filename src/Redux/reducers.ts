@@ -1,4 +1,4 @@
-import { State, User, Book } from './interfaces';
+import { State, User, Book, CartBooks } from './interfaces';
 import { 
   UPDATE_CURRENT_USER,
   SET_USER_STARTED,
@@ -23,7 +23,7 @@ const defaultState = {
   fetchBookErr: '',
   isLoad: false,
   filteredBooks: null,
-  booksInCart: localStorage.getItem('booksInCart') || '',
+  booksInCart: JSON.parse(String(localStorage.getItem('booksInCart'))) || [] as CartBooks[],
 };
 
 const reducer = (state = defaultState, action: any): State => {

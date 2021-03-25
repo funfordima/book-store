@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 import { ReactComponent as CartEmptySvg } from '../../public/cart-empty.svg';
 import { ReactComponent as CartFullSvg } from '../../public/cart-full.svg';
+import { CartBooks } from '../../Redux/interfaces';
 
 const HeaderElement = styled.header`
   margin-top: 1.5rem;
@@ -96,32 +97,36 @@ const Subtitle = styled.p`
 `;
 
 interface HeaderProps {
-  booksInCart: string;
+  booksInCart: CartBooks[];
 }
 
-const Header: React.FC<HeaderProps> = ({ booksInCart }) => (
-  <>
-    <HeaderElement>
-      <Title>
-        JS Band Store
+const Header: React.FC<HeaderProps> = ({ booksInCart }) => {
+  const countBooks = booksInCart.reduce((acc, item) => acc + +item.count, 0);
+
+  return (
+    <>
+      <HeaderElement>
+        <Title>
+          JS Band Store
     </Title>
-      <CartContainer to='/cart'>
-        {booksInCart
-          ? <CartFullSvg />
-          : <CartEmptySvg />
-        }
-        <CartTitle>
-          cart
+        <CartContainer to='/cart'>
+          {booksInCart.length
+            ? <CartFullSvg />
+            : <CartEmptySvg />
+          }
+          <CartTitle>
+            cart
       </CartTitle>
-        <CountGoods>
-          {booksInCart ? `( ${booksInCart} )` : null}
-        </CountGoods>
-      </CartContainer>
-    </HeaderElement>
-    <Subtitle>
-      Buy books - time is running out!
+          <CountGoods>
+            {booksInCart.length ? `( ${countBooks} )` : null}
+          </CountGoods>
+        </CartContainer>
+      </HeaderElement>
+      <Subtitle>
+        Buy books - time is running out!
     </Subtitle>
-  </>
-);
+    </>
+  );
+};
 
 export default Header;
