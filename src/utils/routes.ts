@@ -23,7 +23,7 @@ export const authRoutes: Array<Path> = [
 export const publicRoutes: Array<Path> = [
   {
     path: '/',
-    Component: CatalogPage,
+    Component: LoginPage,
   },
   {
     path: LOGIN_ROUTE,

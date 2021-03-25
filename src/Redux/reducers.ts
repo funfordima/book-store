@@ -1,17 +1,27 @@
-import { State, User } from './interfaces';
+import { State, User, Book } from './interfaces';
 import { 
   UPDATE_CURRENT_USER,
   SET_USER_STARTED,
   SET_USER_SUCCESS,
   SET_USER_FAILURE, 
   REMOVE_USER_FAILURE, 
+  SET_SEARCH_BOOK, 
+  GET_BOOK_STARTED, 
+  GET_BOOK_SUCCESS, 
+  GET_BOOK_FAILURE, 
+  SET_BOOK_FILTERED, 
  } from './consts';
 
 const defaultState = {
-  isAuth: false,
+  isAuth: !!localStorage.getItem('token'),
   isLoading: false,
   error: '',
   user: {} as User,
+  searchBook: '',
+  books: [] as Book[],
+  fetchBookErr: '',
+  isLoad: false,
+  filteredBooks: null,
 };
 
 const reducer = (state = defaultState, action: any): State => {
@@ -52,6 +62,44 @@ const reducer = (state = defaultState, action: any): State => {
         ...state,
         isLoading: true,
         error: '',
+      }
+    }
+
+    case SET_SEARCH_BOOK: {
+      return {
+        ...state,
+        searchBook: action.payload,
+      }
+    }
+
+    case GET_BOOK_STARTED: {
+      return {
+        ...state,
+        isLoad: true,
+        fetchBookErr: '',
+      }
+    }
+
+    case GET_BOOK_SUCCESS: {
+      return {
+        ...state,
+        books: action.payload,
+        isLoad: false,
+      }
+    }
+
+    case GET_BOOK_FAILURE: {
+      return {
+        ...state,
+        isLoad: true,
+        fetchBookErr: action.payload,
+      }
+    }
+
+    case SET_BOOK_FILTERED: {
+      return {
+        ...state,
+        filteredBooks: action.payload as Book[] | null,
       }
     }
 

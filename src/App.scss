@@ -14,7 +14,7 @@ html {
   font-size: 1.5rem;
 }
 
-.body {
+body {
   background: url('./public/authorizationBack.jpg');
   background-size: cover;
   background-repeat: no-repeat;
@@ -23,4 +23,45 @@ html {
   max-width: 100%;
   overflow-y: auto;
   background-attachment: fixed;
+}
+
+.menu[data-state='active'] {
+  .menu__title {
+    &::before {
+      transform: translate(-3px, -50%) rotate(-45deg);
+    }
+
+    &::after {
+      transform: translate(3px, -50%) rotate(45deg);
+    }
+  }
+
+  .menu__content {
+    opacity: 1;
+  }
+
+  .menu__input + .menu__label {
+    max-height: 4rem;
+    border-top-width: 1px;
+  }
+}
+
+@keyframes hvr-buzz {
+  50% {
+    transform: translateX(2px) rotate(2deg);
+  }
+  100% {
+    transform: translateX(-2px) rotate(-2deg);
+  }
+}
+
+.hvr-buzz {
+  transform: perspective(1px) translateZ(0);
+
+  &:hover {
+    animation-name: hvr-buzz;
+    animation-duration: 0.15s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+  }
 }

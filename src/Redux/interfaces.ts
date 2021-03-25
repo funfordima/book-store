@@ -4,11 +4,28 @@ export interface User {
   token: string,
 }
 
+export interface Book {
+  id: string,
+  count: number,
+  price: number,
+  title: string,
+  author: string,
+  level: string,
+  description: string,
+  cover: string,
+  tags: string[],
+}
+
 export interface State {
   isAuth: boolean,
   isLoading: boolean,
   error: string,
   user: User,
+  searchBook: string,
+  books: Book[],
+  fetchBookErr: string,
+  isLoad: boolean,
+  filteredBooks: Book[] | null,
 }
 
 export interface UpdateCurrentUser {
@@ -28,4 +45,28 @@ export interface SetUserSuccess {
 export interface SetUserFailure {
   type: string,
   payload: string,
+}
+
+export interface SetSearchBook {
+  type: string,
+  payload: string,
+}
+
+export interface GetBookStarted {
+  type: string,
+}
+
+export interface GetBookSuccess {
+  type: string,
+  payload: Book[],
+}
+
+export interface GetBookFailure {
+  type: string,
+  payload: string,
+}
+
+export interface SetBooksFiltered {
+  type: string,
+  payload: Book[] | null,
 }

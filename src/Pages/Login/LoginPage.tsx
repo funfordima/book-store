@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { Redirect } from 'react-router-dom';
 import LogInForm from '../../Components/LoginForm/LoginFormContainer';
@@ -37,35 +37,20 @@ interface LoginPageProps {
   isAuth: boolean;
 }
 
-const LoginPage: React.FC<LoginPageProps> = ({ isAuth }) => {
-  const addBodyClass = (className: string): void =>
-    document.body.classList.add(className);
-  const removeBodyClass = (className: string): void =>
-    document.body.classList.remove(className);
-
-  useEffect(() => {
-    addBodyClass('body');
-
-    return () => {
-      removeBodyClass('body');
-    };
-  }, []);
-
-  return (
-    <>
-      {isAuth
-        ? <Redirect to={CATALOG_ROUTE} />
-        : (
-          <Container>
-            <Title>
-              JS Band Store
+const LoginPage: React.FC<LoginPageProps> = ({ isAuth }) => (
+  <>
+    {isAuth
+      ? <Redirect to={CATALOG_ROUTE} />
+      : (
+        <Container>
+          <Title>
+            JS Band Store
             </Title>
-            <LogInForm />
-          </Container>
-        )
-      }
-    </>
-  );
-};
+          <LogInForm />
+        </Container>
+      )
+    }
+  </>
+);
 
 export default LoginPage;

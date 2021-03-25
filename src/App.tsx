@@ -9,7 +9,7 @@ import AppRouter from './Components/AppRouter/AppRouterContainer';
 import './App.scss';
 
 const store = createStore(
-  reducer,
+  reducer as any,
   composeWithDevTools(
     applyMiddleware(thunk),
   )
