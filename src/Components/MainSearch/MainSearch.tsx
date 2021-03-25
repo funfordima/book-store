@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { ReactComponent as SearchSvg } from '../../public/search.svg';
+import { ReactComponent as CloseSvg } from '../../public/close.svg';
 import { Book } from '../../Redux/interfaces';
 
 const Form = styled.form`
@@ -27,7 +28,7 @@ const InputWrapper = styled.div`
     left: auto;
     right: 1.2rem;
     position: absolute;
-    top: 1rem;
+    top: 1.1rem;
     color: rgba(0, 0, 0, 0.16);
     fill: currentColor;
     z-index: 1;
@@ -52,7 +53,7 @@ const Input = styled.input`
   box-sizing: border-box;
   position: relative;
   margin: 0;
-  padding: 0.7rem 1rem 0.7rem 4rem;
+  padding: 0.7rem 3rem 0.7rem 4rem;
   width: 100%;
   font-size: 1.3rem;
   line-height: 2rem;
@@ -94,17 +95,18 @@ const MainSearch: React.FC<CityFilterSearchProps> = ({ searchBook, setSearchBook
 
     const filterBooks = books.filter(({ title }) => title.includes(searchBook));
 
-    console.log(filterBooks);
-
     setBooksFiltered(filterBooks);
   };
 
   const handleSearchClick = () => {
     const filterBooks = books.filter(({ title }) => title.includes(searchBook));
 
-    console.log(filterBooks);
-
     setBooksFiltered(filterBooks);
+  };
+
+  const handleClearSearch = () => {
+    setBooksFiltered(null);
+    setSearchBook('');
   };
 
   useEffect(() => {
@@ -118,7 +120,7 @@ const MainSearch: React.FC<CityFilterSearchProps> = ({ searchBook, setSearchBook
       >
         <InputWrapper>
           <Input
-            type='search'
+            type='text'
             id='search-book'
             name='search-book'
             placeholder='Search book'
@@ -128,6 +130,10 @@ const MainSearch: React.FC<CityFilterSearchProps> = ({ searchBook, setSearchBook
             ref={inputRef}
           />
           <SearchSvg onClick={handleSearchClick} />
+          <CloseSvg
+            style={{ 'display': `${searchBook ? 'block' : 'none'}` }}
+            onClick={handleClearSearch}
+          />
         </InputWrapper>
       </Label>
     </Form>
