@@ -1,4 +1,4 @@
-import { State, User, Book } from './interfaces';
+import { State, User, Book, CartBooks } from './interfaces';
 import { 
   UPDATE_CURRENT_USER,
   SET_USER_STARTED,
@@ -10,6 +10,7 @@ import {
   GET_BOOK_SUCCESS, 
   GET_BOOK_FAILURE, 
   SET_BOOK_FILTERED, 
+  SET_BOOK_IN_CART, 
  } from './consts';
 
 const defaultState = {
@@ -22,6 +23,7 @@ const defaultState = {
   fetchBookErr: '',
   isLoad: false,
   filteredBooks: null,
+  booksInCart: JSON.parse(String(localStorage.getItem('booksInCart'))) || [] as CartBooks[],
 };
 
 const reducer = (state = defaultState, action: any): State => {
@@ -100,6 +102,13 @@ const reducer = (state = defaultState, action: any): State => {
       return {
         ...state,
         filteredBooks: action.payload as Book[] | null,
+      }
+    }
+
+    case SET_BOOK_IN_CART: {
+      return {
+        ...state,
+        booksInCart: action.payload,
       }
     }
 

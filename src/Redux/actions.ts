@@ -10,6 +10,8 @@ import {
   GetBookFailure, 
   GetBookSuccess, 
   SetBooksFiltered, 
+  SetBooksInCart, 
+  CartBooks, 
  } from './interfaces';
 import { 
   UPDATE_CURRENT_USER, 
@@ -22,6 +24,7 @@ import {
   GET_BOOK_SUCCESS, 
   GET_BOOK_FAILURE, 
   SET_BOOK_FILTERED, 
+  SET_BOOK_IN_CART, 
 } from './consts';
 
 export const updateCurrentUser = (value: boolean): UpdateCurrentUser => ({
@@ -123,4 +126,9 @@ export const fetchBooks = (token: string) => (dispatch: any) => {
 export const setBooksFiltered = (books: Book[] | null): SetBooksFiltered => ({
   type: SET_BOOK_FILTERED,
   payload: books,
+});
+
+export const setBooksInCart = (arg: CartBooks[]): SetBooksInCart => ({
+  type: SET_BOOK_IN_CART,
+  payload: arg,
 });
