@@ -1,4 +1,4 @@
-import CartPage from '../Pages/Cart/CartPage';
+import CartPage from '../Pages/Cart/CartPageContainer';
 import CatalogPage from '../Pages/Catalog/CatalogPageContainer';
 import LoginPage from '../Pages/Login/LoginPageContainer';
 import NotFoundPage from '../Pages/NotFound/NotFoundPage';

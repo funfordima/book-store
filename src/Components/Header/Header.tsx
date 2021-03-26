@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom';
 import { ReactComponent as CartEmptySvg } from '../../public/cart-empty.svg';
 import { ReactComponent as CartFullSvg } from '../../public/cart-full.svg';
 import { CartBooks } from '../../Redux/interfaces';
+import { CART_ROUTE } from '../../utils/constants';
 
 const HeaderElement = styled.header`
   margin-top: 1.5rem;
@@ -109,14 +110,14 @@ const Header: React.FC<HeaderProps> = ({ booksInCart }) => {
         <Title>
           JS Band Store
     </Title>
-        <CartContainer to='/cart'>
+        <CartContainer to={CART_ROUTE}>
           {booksInCart.length
             ? <CartFullSvg />
             : <CartEmptySvg />
           }
           <CartTitle>
             cart
-      </CartTitle>
+          </CartTitle>
           <CountGoods>
             {booksInCart.length ? `( ${countBooks} )` : null}
           </CountGoods>
