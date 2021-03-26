@@ -8,9 +8,26 @@ import { Book } from '../../Redux/interfaces';
 const Container = styled.div`
   padding: 2rem;
   display: flex;
+  justify-content: space-between;
   background-color: #fff;
   color: #000;
   border-radius: 0.9rem;
+
+  @media (max-width: 767px) {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+`;
+
+const Wrapper = styled.div`
+  display: flex;
+
+  @media (max-width: 1020px) {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 `;
 
 const ImageContainer = styled.div`
@@ -34,6 +51,11 @@ const Image = styled.img`
 const ContentContainer = styled.div`
   margin: 2rem 2rem 0 2.9rem;
   width: 35rem;
+
+  @media (max-width: 1125px) {
+    margin: 0;
+    width: 30rem;
+  }
 `;
 
 const BookTitle = styled.h3`
@@ -122,21 +144,23 @@ const BookDescription: React.FC<BookDescriptionProps> = ({ books }) => {
           {description}
         </Description>
       </ImageContainer>
-      <ContentContainer>
-        <BookTitle>
-          {title}
-        </BookTitle>
-        <BookAuthor>
-          {author}
+      <Wrapper>
+        <ContentContainer>
+          <BookTitle>
+            {title}
+          </BookTitle>
+          <BookAuthor>
+            {author}
           &nbsp;
           <SpanAuthor>(Author)</SpanAuthor>
-        </BookAuthor>
-        <AdditionalInfo>
-          <TagSvg />
-          {tags.join(', ')}
-        </AdditionalInfo>
-      </ContentContainer>
-      <Price book={book as Book} />
+          </BookAuthor>
+          <AdditionalInfo>
+            <TagSvg />
+            {tags.join(', ')}
+          </AdditionalInfo>
+        </ContentContainer>
+        <Price book={book as Book} />
+      </Wrapper>
     </Container>
   );
 };

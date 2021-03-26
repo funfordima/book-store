@@ -8,8 +8,13 @@ import { Book, CartBooks } from '../../Redux/interfaces';
 const Container = styled.div`
   padding-left: 2rem;
   width: 30%;
+  min-width: 28rem;
   display: flex;
   flex-direction: column;
+
+  @media (max-width: 1020px) {
+    padding: 0;
+  }
 `;
 
 const Row = styled.div`

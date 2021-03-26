@@ -18,6 +18,11 @@ const ControlBar = styled.div`
   align-items: center;
   justify-content: space-evenly;
   background-color: #fff;
+
+  @media (max-width: 620px) {
+    padding-bottom: 1.6rem;
+    flex-direction: column;
+  }
 `;
 
 interface CatalogPageProps {
