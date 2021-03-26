@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Book, CartBooks } from '../../Redux/interfaces';
 import { ReactComponent as BinSvg } from '../../public/bin.svg';
@@ -28,20 +28,24 @@ const TableRow = styled.div`
 const TableItem = styled.div`
   width: 100%;
   height: 100%;
+  padding-left: 1rem;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   font-size: 2rem;
   font-weight: 500;
   background-color: #fff;
   position: relative;
 
+  &:last-of-type {
+    padding-right: 1rem;
+    justify-content: flex-end;
+  }
+
   & svg {
     width: 2rem;
     height: 2rem;
-    position: absolute;
-    right: 1.5rem;
-    top: 20px;
+    margin-left: 1rem;
     cursor: pointer;
   }
 `;
@@ -66,10 +70,10 @@ const Row = styled.div`
 interface CartContentProps {
   books: Book[];
   booksInCart: CartBooks[];
-  // setBooksInCart: (arg: CartBooks[]) => void;
+  setBooksInCart: (arg: CartBooks[]) => void;
 }
 
-const CartContent: React.FC<CartContentProps> = ({ books, booksInCart }) => {
+const CartContent: React.FC<CartContentProps> = ({ books, booksInCart, setBooksInCart }) => {
   const purchaseBooks: Book[] = books.reduce((acc: Book[], book) => {
     const index = booksInCart.findIndex(({ id }) => id === book.id);
 
@@ -80,22 +84,35 @@ const CartContent: React.FC<CartContentProps> = ({ books, booksInCart }) => {
     return acc;
   }, []);
 
+  const [chooseBooks, setChooseBooks] = useState(purchaseBooks);
   const totalPrice = purchaseBooks.reduce((acc, { count, price }) => acc + count * price, 0).toFixed(2);
+
+  const handleDelBookFromCart = (event: React.MouseEvent<SVGElement>) => {
+    const newChooseBooks = chooseBooks.filter(({ id }) => id !== event.currentTarget.id);
+    const changeBooksInCart = booksInCart.filter(({ id }) => id !== event.currentTarget.id);
+
+    setBooksInCart(changeBooksInCart);
+    setChooseBooks(newChooseBooks);
+  };
+
+  useEffect(() => {
+    localStorage.setItem('booksInCart', JSON.stringify(booksInCart));
+  }, [booksInCart]);
 
   return (
     <Container>
       <TableRow>
         {['Name', 'Count', 'Price', 'Total'].map((item) => <TableItem key={item}>{item}</TableItem>)}
       </TableRow>
-      {purchaseBooks.map(({ title, count, price }) => {
+      {chooseBooks.map(({ title, count, price, id }) => {
         return (
-          <TableRow key={title}>
+          <TableRow key={id}>
             <TableItem>{title}</TableItem>
             <TableItem>{count}</TableItem>
             <TableItem>{price.toFixed(2)}</TableItem>
             <TableItem>
               {(count * price).toFixed(2)}
-              <BinSvg />
+              <BinSvg id={id} onClick={handleDelBookFromCart} />
             </TableItem>
           </TableRow>
         );

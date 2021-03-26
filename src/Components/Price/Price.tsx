@@ -90,7 +90,22 @@ const Price: React.FC<PriceProps> = ({ book, booksInCart, setBooksInCart }) => {
   const handleClick = () => {
     const countBook = `${totalPrice / price}`;
 
-    setBooksInCart([...booksInCart, { id, count: countBook }]);
+    if (booksInCart.some((book) => book.id === id)) {
+      const newBooks = booksInCart.map((book) => {
+        if (book.id === id) {
+          return {
+            ...book,
+            count: (+countBook).toFixed(),
+          };
+        }
+
+        return book;
+      });
+
+      setBooksInCart(newBooks);
+    } else {
+      setBooksInCart([...booksInCart, { id, count: countBook }]);
+    }
   };
 
   useEffect(() => {
