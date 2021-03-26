@@ -8,6 +8,7 @@ import Footer from '../../Components/Footer/Footer';
 import { ReactComponent as ArrowSvg } from '../../public/arrow-left.svg';
 import { ReactComponent as CartSvg } from '../../public/cart-empty.svg';
 import { CATALOG_ROUTE } from '../../utils/constants';
+import { CartBooks } from '../../Redux/interfaces';
 
 const Container = styled.div`
   width: 100%;
@@ -152,7 +153,30 @@ const BookTitle = styled.h3`
   color: #2c293b;
 `;
 
-const CartPage: React.FC = () => (
+const EmptyContainer = styled.div`
+  width: 100%;
+  padding: 20px;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 72px;
+  font-weight: 300;
+  background-color: #c7c7c7;
+  border: 2px solid #c7c7c7;
+
+  & svg {
+    width: 20rem;
+    height: 20rem;
+  }
+`;
+
+interface CartPageProps {
+  booksInCart: CartBooks[];
+}
+
+const CartPage: React.FC<CartPageProps> = ({ booksInCart }) => (
   <Container>
     <Wrapper>
       <Row>
@@ -167,12 +191,18 @@ const CartPage: React.FC = () => (
         <BookTitle>
           Shopping Cart
         </BookTitle>
-        <AddBtn>
+        <AddBtn disabled={!!booksInCart.length}>
           <CartSvg />
             Purchase
-        </AddBtn>
+          </AddBtn>
       </Row>
-      <CartContent />
+      {booksInCart.length
+        ? <CartContent />
+        : <EmptyContainer>
+          <CartSvg />
+            Cart empty ...
+          </EmptyContainer>
+      }
       <Footer />
     </Wrapper>
   </Container>
