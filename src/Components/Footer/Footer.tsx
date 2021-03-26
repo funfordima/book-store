@@ -4,11 +4,16 @@ import { ReactComponent as GitSvg } from '../../public/git.svg';
 
 const Footer = styled.footer`
   height: 7.7rem;
+  width: 100%;
+  padding: 20px;
   display: flex;
-  justify-content: space-around;
   align-items: center;
+  justify-content: space-between;
   margin: 0.5em;
   flex: 0 0 auto;
+  position: fixed;
+  bottom: 0;
+  left: 0;
 `;
 
 const Wrapper = styled.div`

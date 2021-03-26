@@ -126,8 +126,8 @@ const Price: React.FC<PriceProps> = ({ book, booksInCart, setBooksInCart }) => {
         onClick={handleClick}
       >
         <CartSvg />
-      Add to cart
-    </AddBtn>
+          Add to cart
+        </AddBtn>
     </Container>
   );
 };
