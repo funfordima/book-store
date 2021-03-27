@@ -11,6 +11,7 @@ import { CATALOG_ROUTE } from '../../utils/constants';
 import { CartBooks } from '../../Redux/interfaces';
 
 const Row = styled.div`
+  padding: 0.5rem 1rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -19,6 +20,16 @@ const Row = styled.div`
     width: 100%;
     padding: 0.5rem 1rem;
     justify-content: flex-end;
+  }
+
+  &:first-of-type {
+    @media (max-width: 620px) {
+      flex-direction: column;
+
+      & div {
+        align-self: unset;
+      }
+    }
   }
 `;
 
@@ -31,6 +42,10 @@ const BookTitle = styled.h3`
   line-height: 130%;
   font-weight: 700;
   color: #2c293b;
+
+  @media (max-width: 620px) {
+    font-size: 2.5rem;
+  }
 `;
 
 const EmptyContainer = styled.div`

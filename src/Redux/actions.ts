@@ -12,6 +12,7 @@ import {
   SetBooksFiltered, 
   SetBooksInCart, 
   CartBooks, 
+  GetBookDescription, 
  } from './interfaces';
 import { 
   UPDATE_CURRENT_USER, 
@@ -25,6 +26,9 @@ import {
   GET_BOOK_FAILURE, 
   SET_BOOK_FILTERED, 
   SET_BOOK_IN_CART, 
+  GET_BOOK_DESCRIPTION, 
+  GET_BOOK_BY_ID_STARTED, 
+  GET_BOOK_BY_ID_FAILURE, 
 } from './consts';
 
 export const updateCurrentUser = (value: boolean): UpdateCurrentUser => ({
@@ -97,8 +101,12 @@ export const getBookFailure = (error: string): GetBookFailure => ({
   payload: error,
 });
 
+export const getBookByIdStarted = (): GetBookStarted => ({
+  type: GET_BOOK_BY_ID_STARTED,
+});
+
 export const fetchBooks = (token: string) => (dispatch: any) => {
-  dispatch(getBookStarted());
+  dispatch(getBookByIdStarted());
 
   fetch(`${MAIN_URL}books`, {
     headers: {
@@ -132,3 +140,39 @@ export const setBooksInCart = (arg: CartBooks[]): SetBooksInCart => ({
   type: SET_BOOK_IN_CART,
   payload: arg,
 });
+
+export const getBookDescription = (arg: Book): GetBookDescription => ({
+  type: GET_BOOK_DESCRIPTION,
+  payload: arg,
+});
+
+export const getBookByIdFailure = (error: string): GetBookFailure => ({
+  type: GET_BOOK_BY_ID_FAILURE,
+  payload: error,
+});
+
+export const fetchBookBuId = (token: string, id: string) => (dispatch: any) => {
+  dispatch(getBookStarted());
+
+  fetch(`${MAIN_URL}books/${id}`, {
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    }
+  })
+  .then((res) => {
+    if (!res.ok) {
+      localStorage.clear();
+      throw new Error('Unauthorized');
+    }
+
+    return res.json();
+  })
+  .then((json) => {
+    dispatch(getBookDescription(json));
+  })
+  .catch((error) => {
+    dispatch(updateCurrentUser(false));
+    dispatch(getBookByIdFailure(error.message));
+  });
+};

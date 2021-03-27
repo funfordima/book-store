@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import { useParams } from 'react-router-dom';
+import { useParams, Redirect } from 'react-router-dom';
 import { ReactComponent as TagSvg } from '../../public/ticket.svg';
 import Price from '../Price/PriceContainer';
+import Loader from '../../Components/Loader/Loader';
 import { Book } from '../../Redux/interfaces';
+import { LOGIN_ROUTE } from '../../utils/constants';
 
 const Container = styled.div`
   padding: 2rem;
@@ -124,44 +126,65 @@ interface ParamRoute {
 }
 
 interface BookDescriptionProps {
-  books: Book[];
+  book: Book;
+  LoadBook: boolean;
+  error: string;
+  fetchBookBuId: (token: string, id: string) => void;
 }
 
-const BookDescription: React.FC<BookDescriptionProps> = ({ books }) => {
+const BookDescription: React.FC<BookDescriptionProps> = ({ book, fetchBookBuId, LoadBook, error }) => {
   const { id }: ParamRoute = useParams();
-
-  const book = books.find((book) => book.id === id);
   const { title, author, description, cover, tags } = book as Book;
 
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+
+    if (token) {
+      fetchBookBuId(token, id);
+    }
+  }, [id, fetchBookBuId]);
+
   return (
-    <Container>
-      <ImageContainer>
-        <Image
-          src={cover}
-          alt={title}
-        />
-        <Description>
-          {description}
-        </Description>
-      </ImageContainer>
-      <Wrapper>
-        <ContentContainer>
-          <BookTitle>
-            {title}
-          </BookTitle>
-          <BookAuthor>
-            {author}
+    <>
+      {LoadBook
+        ? (
+          <>
+            <Loader />
+            {error
+              && <Redirect to={LOGIN_ROUTE} />}
+          </>
+        )
+        : (
+          <Container>
+            <ImageContainer>
+              <Image
+                src={cover}
+                alt={title}
+              />
+              <Description>
+                {description}
+              </Description>
+            </ImageContainer>
+            <Wrapper>
+              <ContentContainer>
+                <BookTitle>
+                  {title}
+                </BookTitle>
+                <BookAuthor>
+                  {author}
           &nbsp;
           <SpanAuthor>(Author)</SpanAuthor>
-          </BookAuthor>
-          <AdditionalInfo>
-            <TagSvg />
-            {tags.join(', ')}
-          </AdditionalInfo>
-        </ContentContainer>
-        <Price book={book as Book} />
-      </Wrapper>
-    </Container>
+                </BookAuthor>
+                <AdditionalInfo>
+                  <TagSvg />
+                  {tags.join(', ')}
+                </AdditionalInfo>
+              </ContentContainer>
+              <Price book={book as Book} />
+            </Wrapper>
+          </Container>
+        )}
+    </>
   );
 };
 

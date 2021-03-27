@@ -17,6 +17,7 @@ const Footer = styled.footer`
 `;
 
 const Wrapper = styled.div`
+  padding: 2rem;
   width: 100%;
   display: flex;
   align-items: center;

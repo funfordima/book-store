@@ -32,6 +32,8 @@ export interface State {
   isLoad: boolean,
   filteredBooks: Book[] | null,
   booksInCart: CartBooks[],
+  book: Book,
+  LoadBook: boolean,
 }
 
 export interface UpdateCurrentUser {
@@ -80,4 +82,9 @@ export interface SetBooksFiltered {
 export interface SetBooksInCart {
   type: string,
   payload: CartBooks[],
+}
+
+export interface GetBookDescription {
+  type: string,
+  payload: Book,
 }
