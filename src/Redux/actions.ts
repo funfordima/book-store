@@ -69,7 +69,6 @@ export const setUser = (username: string) => (dispatch: any) => {
   .then((res) => res.json())
   .then((json) => {
     dispatch(setUserSuccess(json));
-    console.log(json);
     const currentUser = {
       username: json.username,
       avatar: json.avatar,
@@ -202,25 +201,22 @@ export const fetchPurchase = (token: string, books: string[]) => (dispatch: any)
     }
   })
   .then((res) => {
-    console.log(res);
     if (res.status !== 200) {
-      localStorage.clear();
       throw new Error(`${res.status}`);
     }
 
     return res.json();
   })
   .then((json) => {
-    console.log(json);
     dispatch(setPurchaseSuccess(json.message));
   })
   .catch((error) => {
-    // dispatch(updateCurrentUser(false));
-    console.log(error);
     if (error.message === '400') {
       dispatch(setPurchaseError("Please provide list of ids in format: { books: [...] }"));
     } else if (error.message === '400') {
       dispatch(setPurchaseError("Unauthorized"));
+      localStorage.clear();
+      dispatch(updateCurrentUser(false));
     } else {
       dispatch(setPurchaseError("Something went wrong! Unhandled exception"));
     }
