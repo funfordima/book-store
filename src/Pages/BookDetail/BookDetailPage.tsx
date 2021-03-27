@@ -7,10 +7,6 @@ import { Container, Wrapper, BackButton, Row } from '../../utils/styledComponent
 import { ReactComponent as ArrowSvg } from '../../public/arrow-left.svg';
 import { CATALOG_ROUTE } from '../../utils/constants';
 
-// interface BookDetailPageProps {
-//   isAuth: boolean;
-// }
-
 const BookDetailPage: React.FC = () => (
   <Container>
     <Wrapper>
