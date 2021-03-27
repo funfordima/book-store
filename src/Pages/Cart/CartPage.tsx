@@ -9,6 +9,8 @@ import { ReactComponent as ArrowSvg } from '../../public/arrow-left.svg';
 import { ReactComponent as CartSvg } from '../../public/cart-empty.svg';
 import { CATALOG_ROUTE } from '../../utils/constants';
 import { CartBooks } from '../../Redux/interfaces';
+import ModalDialog from '../../Components/ModalDialog';
+import { AlertSuccess, AlertError } from '../../utils/styledComponents';
 
 const Row = styled.div`
   padding: 0.5rem 1rem;
@@ -69,12 +71,39 @@ const EmptyContainer = styled.div`
 
 interface CartPageProps {
   booksInCart: CartBooks[];
+  fetchPurchase: (token: string, books: string[]) => void;
+  setPurchaseSuccess: (param: string) => void;
+  setPurchaseError: (param: string) => void;
+  setBooksInCart: (param: CartBooks[]) => void;
+  purchaseSuccess: string,
+  purchaseError: string,
 }
 
-const CartPage: React.FC<CartPageProps> = ({ booksInCart }) => {
-
+const CartPage: React.FC<CartPageProps> = ({ booksInCart, fetchPurchase, purchaseSuccess, purchaseError, setPurchaseSuccess, setPurchaseError, setBooksInCart }) => {
   const handlePurchaseClick = () => {
-    console.log(1);
+    const token = localStorage.getItem('token');
+    console.log(booksInCart);
+    const purchaseBooks = booksInCart.reduce((acc: string[], book) => {
+      const { id, count } = book;
+      acc.push(...Array(+((+count).toFixed())).fill(id));
+
+      return acc;
+    }, []);
+
+    console.log(purchaseBooks, token);
+
+    if (token) {
+      fetchPurchase(token, purchaseBooks);
+    }
+  };
+
+  const handleCloseModalWindow = () => {
+    setPurchaseSuccess('');
+    setBooksInCart([]);
+  };
+
+  const handleCloseErrorWindow = () => {
+    setPurchaseError('');
   };
 
   return (
@@ -100,12 +129,39 @@ const CartPage: React.FC<CartPageProps> = ({ booksInCart }) => {
             Purchase
           </AddBtn>
         </Row>
-        {booksInCart.length
-          ? <CartContent />
-          : <EmptyContainer>
-            <CartSvg />
-            Cart empty ...
-          </EmptyContainer>
+        {
+          booksInCart.length
+            ? <CartContent />
+            : (
+              <EmptyContainer>
+                <CartSvg />
+              Cart empty ...
+              </EmptyContainer>)
+        }
+        {
+          purchaseSuccess
+          && (
+            <ModalDialog>
+              <AlertSuccess>{purchaseSuccess}</AlertSuccess>
+              <CartContent />
+              <Row>
+                <AddBtn onClick={handleCloseModalWindow}>
+                  Close
+                </AddBtn>
+              </Row>
+            </ModalDialog>)
+        }
+        {
+          purchaseError
+          && (
+            <ModalDialog>
+              <AlertError>{purchaseError}</AlertError>
+              <Row>
+                <AddBtn onClick={handleCloseErrorWindow}>
+                  Close
+                </AddBtn>
+              </Row>
+            </ModalDialog>)
         }
         <Footer />
       </Wrapper>
