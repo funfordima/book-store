@@ -1,9 +1,14 @@
 import { connect } from 'react-redux';
 import UserBar from './UserBar';
 import { State } from '../../Redux/interfaces';
+import { updateCurrentUser } from '../../Redux/actions';
 
 const mapStateToProps = (state: State) => ({
   currentUser: state.user,
 });
 
-export default connect(mapStateToProps)(UserBar);
+const mapDispatchStateToProps = {
+  updateCurrentUser,
+};
+
+export default connect(mapStateToProps, mapDispatchStateToProps)(UserBar);
