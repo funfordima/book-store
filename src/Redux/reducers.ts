@@ -11,19 +11,24 @@ import {
   GET_BOOK_FAILURE, 
   SET_BOOK_FILTERED, 
   SET_BOOK_IN_CART, 
+  GET_BOOK_DESCRIPTION, 
+  GET_BOOK_BY_ID_STARTED, 
+  GET_BOOK_BY_ID_FAILURE, 
  } from './consts';
 
 const defaultState = {
   isAuth: !!localStorage.getItem('token'),
-  isLoading: false,
+  isLoading: true,
   error: '',
   user: {} as User,
   searchBook: '',
   books: [] as Book[],
   fetchBookErr: '',
-  isLoad: false,
+  isLoad: true,
   filteredBooks: null,
   booksInCart: JSON.parse(String(localStorage.getItem('booksInCart'))) || [] as CartBooks[],
+  book: {} as Book,
+  LoadBook: true,
 };
 
 const reducer = (state = defaultState, action: any): State => {
@@ -109,6 +114,30 @@ const reducer = (state = defaultState, action: any): State => {
       return {
         ...state,
         booksInCart: action.payload,
+      }
+    }
+
+    case GET_BOOK_BY_ID_STARTED: {
+      return {
+        ...state,
+        LoadBook: true,
+        fetchBookErr: '',
+      }
+    }
+
+    case GET_BOOK_BY_ID_FAILURE: {
+      return {
+        ...state,
+        LoadBook: true,
+        fetchBookErr: action.payload,
+      }
+    }
+
+    case GET_BOOK_DESCRIPTION: {
+      return {
+        ...state,
+        book: action.payload,
+        LoadBook: false,
       }
     }
 

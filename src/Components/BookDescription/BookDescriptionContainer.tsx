@@ -1,9 +1,16 @@
 import { connect } from 'react-redux';
 import BookDescription from './BookDescription';
 import { State } from '../../Redux/interfaces';
+import { fetchBookBuId } from '../../Redux/actions';
 
 const mapStateToProps = (state: State) => ({
-  books: state.books,
+  book: state.book,
+  LoadBook: state.LoadBook,
+  error: state.fetchBookErr,
 });
 
-export default connect(mapStateToProps)(BookDescription);
+const mapDispatchToProps = {
+  fetchBookBuId,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(BookDescription);
