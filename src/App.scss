@@ -65,3 +65,14 @@ body {
     animation-iteration-count: infinite;
   }
 }
+
+.not-found {
+  background: url('./public/not-found.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  width: 100vw;
+  max-width: 100%;
+  overflow-y: auto;
+  background-attachment: fixed;
+}
