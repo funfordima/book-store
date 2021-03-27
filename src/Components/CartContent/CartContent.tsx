@@ -4,13 +4,15 @@ import { Book, CartBooks } from '../../Redux/interfaces';
 import { ReactComponent as BinSvg } from '../../public/bin.svg';
 
 const Container = styled.div`
-  margin-top: 2rem;
+  max-width: 960px;
+  margin: 2rem auto;
   width: 100%;
   display: flex;
   flex-wrap: wrap;
   background-color: #c8c8c8;
   border: 1px solid #eee;
   color: #2c293b;
+  z-index: 2;
 `;
 
 const TableRow = styled.div`
@@ -23,10 +25,15 @@ const TableRow = styled.div`
   height: 6rem;
   background-color: #c7c7c7;
   border: 2px solid #c7c7c7;
+
+  @media (max-width: 415px) {
+    grid-template-columns: 3fr 1fr 1fr 1fr;
+  }
 `;
 
 const TableItem = styled.div`
   width: 100%;
+  min-width: 100px;
   height: 100%;
   padding-left: 1rem;
   display: flex;
@@ -47,6 +54,11 @@ const TableItem = styled.div`
     height: 2rem;
     margin-left: 1rem;
     cursor: pointer;
+  }
+
+  @media (max-width: 620px) {
+    min-width: 60px;
+    font-size: 1.5rem;
   }
 `;
 
@@ -107,7 +119,11 @@ const CartContent: React.FC<CartContentProps> = ({ books, booksInCart, setBooksI
       {chooseBooks.map(({ title, count, price, id }) => {
         return (
           <TableRow key={id}>
-            <TableItem>{title}</TableItem>
+            <TableItem>
+              <p>
+                {title}
+              </p>
+            </TableItem>
             <TableItem>{count}</TableItem>
             <TableItem>{price.toFixed(2)}</TableItem>
             <TableItem>
