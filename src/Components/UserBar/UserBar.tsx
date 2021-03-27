@@ -1,7 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useHistory } from 'react-router-dom';
 import { ReactComponent as LogoutSvg } from '../../public/logout.svg';
 import { User } from '../../Redux/interfaces';
+import { LOGIN_ROUTE } from '../../utils/constants';
 
 const Container = styled.div`
   display: flex;
@@ -97,10 +99,12 @@ const SignOutBtn = styled.button`
 
 interface UserBarProps {
   currentUser: User;
+  updateCurrentUser: (param: boolean) => void;
 }
 
-const UserBar: React.FC<UserBarProps> = ({ currentUser }) => {
+const UserBar: React.FC<UserBarProps> = ({ currentUser, updateCurrentUser }) => {
   let { username, avatar } = currentUser;
+  const history = useHistory();
 
   if (!username) {
     const user = JSON.parse(String(localStorage.getItem('currentUser'))) as User;
@@ -111,6 +115,12 @@ const UserBar: React.FC<UserBarProps> = ({ currentUser }) => {
     }
   }
 
+  const handleSignOut = () => {
+    localStorage.clear();
+    updateCurrentUser(false);
+    history.push(LOGIN_ROUTE);
+  };
+
   return (
     <Container>
       <AvatarContainer>
@@ -119,7 +129,7 @@ const UserBar: React.FC<UserBarProps> = ({ currentUser }) => {
       <UserName>
         {username}
       </UserName>
-      <SignOutBtn>
+      <SignOutBtn onClick={handleSignOut}>
         SignOut
         <LogoutSvg />
       </SignOutBtn>

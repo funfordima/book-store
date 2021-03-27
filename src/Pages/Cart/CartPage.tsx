@@ -82,15 +82,12 @@ interface CartPageProps {
 const CartPage: React.FC<CartPageProps> = ({ booksInCart, fetchPurchase, purchaseSuccess, purchaseError, setPurchaseSuccess, setPurchaseError, setBooksInCart }) => {
   const handlePurchaseClick = () => {
     const token = localStorage.getItem('token');
-    console.log(booksInCart);
     const purchaseBooks = booksInCart.reduce((acc: string[], book) => {
       const { id, count } = book;
       acc.push(...Array(+((+count).toFixed())).fill(id));
 
       return acc;
     }, []);
-
-    console.log(purchaseBooks, token);
 
     if (token) {
       fetchPurchase(token, purchaseBooks);
