@@ -44,6 +44,12 @@ const TableItem = styled.div`
   background-color: #fff;
   position: relative;
 
+  & p {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
   &:last-of-type {
     padding-right: 1rem;
     justify-content: flex-end;
@@ -82,10 +88,11 @@ const Row = styled.div`
 interface CartContentProps {
   books: Book[];
   booksInCart: CartBooks[];
+  purchaseSuccess: string;
   setBooksInCart: (arg: CartBooks[]) => void;
 }
 
-const CartContent: React.FC<CartContentProps> = ({ books, booksInCart, setBooksInCart }) => {
+const CartContent: React.FC<CartContentProps> = ({ books, booksInCart, setBooksInCart, purchaseSuccess }) => {
   const purchaseBooks: Book[] = books.reduce((acc: Book[], book) => {
     const index = booksInCart.findIndex(({ id }) => id === book.id);
 
@@ -124,11 +131,13 @@ const CartContent: React.FC<CartContentProps> = ({ books, booksInCart, setBooksI
                 {title}
               </p>
             </TableItem>
-            <TableItem>{count}</TableItem>
+            <TableItem>{count.toFixed()}</TableItem>
             <TableItem>{price.toFixed(2)}</TableItem>
             <TableItem>
               {(count * price).toFixed(2)}
-              <BinSvg id={id} onClick={handleDelBookFromCart} />
+              {!purchaseSuccess
+                && <BinSvg id={id} onClick={handleDelBookFromCart} />
+              }
             </TableItem>
           </TableRow>
         );

@@ -13,6 +13,8 @@ import {
   SetBooksInCart, 
   CartBooks, 
   GetBookDescription, 
+  SetPurchaseSuccess, 
+  SetPurchaseError, 
  } from './interfaces';
 import { 
   UPDATE_CURRENT_USER, 
@@ -29,6 +31,8 @@ import {
   GET_BOOK_DESCRIPTION, 
   GET_BOOK_BY_ID_STARTED, 
   GET_BOOK_BY_ID_FAILURE, 
+  SET_PURCHASE_SUCCESS, 
+  SET_PURCHASE_ERROR, 
 } from './consts';
 
 export const updateCurrentUser = (value: boolean): UpdateCurrentUser => ({
@@ -174,5 +178,51 @@ export const fetchBookBuId = (token: string, id: string) => (dispatch: any) => {
   .catch((error) => {
     dispatch(updateCurrentUser(false));
     dispatch(getBookByIdFailure(error.message));
+  });
+};
+
+export const setPurchaseSuccess = (data: string): SetPurchaseSuccess => ({
+  type: SET_PURCHASE_SUCCESS,
+  payload: data,
+});
+
+export const setPurchaseError = (error: string): SetPurchaseError => ({
+  type: SET_PURCHASE_ERROR,
+  payload: error,
+});
+
+export const fetchPurchase = (token: string, books: string[]) => (dispatch: any) => {
+
+  fetch(`${MAIN_URL}purchase`, {
+    method: 'POST',
+    body: JSON.stringify({books}),
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    }
+  })
+  .then((res) => {
+    console.log(res);
+    if (res.status !== 200) {
+      localStorage.clear();
+      throw new Error(`${res.status}`);
+    }
+
+    return res.json();
+  })
+  .then((json) => {
+    console.log(json);
+    dispatch(setPurchaseSuccess(json.message));
+  })
+  .catch((error) => {
+    // dispatch(updateCurrentUser(false));
+    console.log(error);
+    if (error.message === '400') {
+      dispatch(setPurchaseError("Please provide list of ids in format: { books: [...] }"));
+    } else if (error.message === '400') {
+      dispatch(setPurchaseError("Unauthorized"));
+    } else {
+      dispatch(setPurchaseError("Something went wrong! Unhandled exception"));
+    }
   });
 };

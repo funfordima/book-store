@@ -34,6 +34,8 @@ export interface State {
   booksInCart: CartBooks[],
   book: Book,
   LoadBook: boolean,
+  purchaseSuccess: string,
+  purchaseError: string,
 }
 
 export interface UpdateCurrentUser {
@@ -87,4 +89,19 @@ export interface SetBooksInCart {
 export interface GetBookDescription {
   type: string,
   payload: Book,
+}
+
+export interface SetPurchaseBooks {
+  type: string,
+  payload: string[],
+}
+
+export interface SetPurchaseSuccess {
+  type: string,
+  payload: string,
+}
+
+export interface SetPurchaseError {
+  type: string,
+  payload: string,
 }

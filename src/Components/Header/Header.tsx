@@ -119,7 +119,7 @@ const Header: React.FC<HeaderProps> = ({ booksInCart }) => {
             cart
           </CartTitle>
           <CountGoods>
-            {booksInCart.length ? `( ${countBooks} )` : null}
+            {booksInCart.length ? `( ${countBooks.toFixed()} )` : null}
           </CountGoods>
         </CartContainer>
       </HeaderElement>

@@ -6,6 +6,7 @@ import { setBooksInCart } from '../../Redux/actions';
 const mapStateToProps = (state: State) => ({
   books: state.books,
   booksInCart: state.booksInCart,
+  purchaseSuccess: state.purchaseSuccess,
 })
 
 const mapDispatchStateToProps = {

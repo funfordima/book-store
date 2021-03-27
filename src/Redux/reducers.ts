@@ -14,21 +14,25 @@ import {
   GET_BOOK_DESCRIPTION, 
   GET_BOOK_BY_ID_STARTED, 
   GET_BOOK_BY_ID_FAILURE, 
+  SET_PURCHASE_SUCCESS, 
+  SET_PURCHASE_ERROR, 
  } from './consts';
 
 const defaultState = {
   isAuth: !!localStorage.getItem('token'),
-  isLoading: true,
+  isLoading: false,
   error: '',
   user: {} as User,
   searchBook: '',
   books: [] as Book[],
   fetchBookErr: '',
-  isLoad: true,
+  isLoad: false,
   filteredBooks: null,
   booksInCart: JSON.parse(String(localStorage.getItem('booksInCart'))) || [] as CartBooks[],
   book: {} as Book,
   LoadBook: true,
+  purchaseSuccess: '',
+  purchaseError: '',
 };
 
 const reducer = (state = defaultState, action: any): State => {
@@ -138,6 +142,20 @@ const reducer = (state = defaultState, action: any): State => {
         ...state,
         book: action.payload,
         LoadBook: false,
+      }
+    }
+
+    case SET_PURCHASE_SUCCESS: {
+      return {
+        ...state,
+        purchaseSuccess: action.payload,
+      }
+    }
+
+    case SET_PURCHASE_ERROR: {
+      return {
+        ...state,
+        purchaseError: action.payload,
       }
     }
 
