@@ -109,7 +109,7 @@ export const getBookByIdStarted = (): GetBookStarted => ({
 });
 
 export const fetchBooks = (token: string) => (dispatch: any) => {
-  dispatch(getBookByIdStarted());
+  dispatch(getBookStarted());
 
   fetch(`${MAIN_URL}books`, {
     headers: {
@@ -155,7 +155,7 @@ export const getBookByIdFailure = (error: string): GetBookFailure => ({
 });
 
 export const fetchBookBuId = (token: string, id: string) => (dispatch: any) => {
-  dispatch(getBookStarted());
+  dispatch(getBookByIdStarted());
 
   fetch(`${MAIN_URL}books/${id}`, {
     headers: {
