@@ -34,8 +34,16 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npx tsc"
+      "pre-commit": "lint-staged"
     }
+  },
+  "lint-staged": {
+    "src/**/*.{tsx,ts}": [
+      "prettier --write",
+      "npm run test",
+      "tslint --fix",
+      "git add"
+    ]
   },
   "eslintConfig": {
     "extends": [
