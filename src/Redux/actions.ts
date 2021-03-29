@@ -18,7 +18,6 @@ import {
  } from './interfaces';
 import { 
   UPDATE_CURRENT_USER, 
-  MAIN_URL,
   SET_USER_STARTED,
   SET_USER_SUCCESS,
   SET_USER_FAILURE, 
@@ -34,6 +33,7 @@ import {
   SET_PURCHASE_SUCCESS, 
   SET_PURCHASE_ERROR, 
 } from './consts';
+import HttpService from '../utils/HttpService';
 
 export const updateCurrentUser = (value: boolean): UpdateCurrentUser => ({
   type: UPDATE_CURRENT_USER,
@@ -54,20 +54,11 @@ export const setUserFailure = (error: string): SetUserFailure => ({
   payload: error,
 });
 
-export const setUser = (username: string) => (dispatch: any) => {
+export const setUser = (username: string) => async (dispatch: any) => {
   dispatch(setUserStarted());
 
-  fetch(`${MAIN_URL}signin`, {
-    method: 'POST',
-    body: JSON.stringify({
-      username
-    }),
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  })
-  .then((res) => res.json())
-  .then((json) => {
+  try {
+    const json = await HttpService.fetchUser(username);
     dispatch(setUserSuccess(json));
     const currentUser = {
       username: json.username,
@@ -78,11 +69,10 @@ export const setUser = (username: string) => (dispatch: any) => {
     localStorage.setItem('currentUser', JSON.stringify(currentUser));
 
     dispatch(updateCurrentUser(true));
-  })
-  .catch((error) => {
+  } catch (error) {
     dispatch(setUserFailure(error.message));
     dispatch(updateCurrentUser(false));
-  });
+  };
 };
 
 export const setSearchBook = (inputValue: string): SetSearchBook => ({
@@ -108,30 +98,16 @@ export const getBookByIdStarted = (): GetBookStarted => ({
   type: GET_BOOK_BY_ID_STARTED,
 });
 
-export const fetchBooks = (token: string) => (dispatch: any) => {
+export const fetchBooks = (token: string) => async (dispatch: any) => {
   dispatch(getBookStarted());
 
-  fetch(`${MAIN_URL}books`, {
-    headers: {
-      'Authorization': `Bearer ${token}`,
-      'Content-Type': 'application/json'
-    }
-  })
-  .then((res) => {
-    if (!res.ok) {
-      localStorage.clear();
-      throw new Error('Unauthorized');
-    }
-
-    return res.json();
-  })
-  .then((json) => {
+  try {
+    const json = await HttpService.getBooks(token);
     dispatch(getBookSuccess(json));
-  })
-  .catch((error) => {
+  } catch (error) {
     dispatch(updateCurrentUser(false));
     dispatch(getBookFailure(error.message));
-  });
+  }
 };
 
 export const setBooksFiltered = (books: Book[] | null): SetBooksFiltered => ({
@@ -154,30 +130,16 @@ export const getBookByIdFailure = (error: string): GetBookFailure => ({
   payload: error,
 });
 
-export const fetchBookBuId = (token: string, id: string) => (dispatch: any) => {
+export const fetchBookBuId = (token: string, id: string) => async (dispatch: any) => {
   dispatch(getBookByIdStarted());
 
-  fetch(`${MAIN_URL}books/${id}`, {
-    headers: {
-      'Authorization': `Bearer ${token}`,
-      'Content-Type': 'application/json'
-    }
-  })
-  .then((res) => {
-    if (!res.ok) {
-      localStorage.clear();
-      throw new Error('Unauthorized');
-    }
-
-    return res.json();
-  })
-  .then((json) => {
+  try {
+    const json = await HttpService.getBookById(token, id);
     dispatch(getBookDescription(json));
-  })
-  .catch((error) => {
+  } catch (err) {
     dispatch(updateCurrentUser(false));
-    dispatch(getBookByIdFailure(error.message));
-  });
+    dispatch(getBookByIdFailure(err.message));
+  }
 };
 
 export const setPurchaseSuccess = (data: string): SetPurchaseSuccess => ({
@@ -190,35 +152,21 @@ export const setPurchaseError = (error: string): SetPurchaseError => ({
   payload: error,
 });
 
-export const fetchPurchase = (token: string, books: string[]) => (dispatch: any) => {
+export const fetchPurchase = (token: string, books: string[]) => async (dispatch: any) => {
 
-  fetch(`${MAIN_URL}purchase`, {
-    method: 'POST',
-    body: JSON.stringify({books}),
-    headers: {
-      'Authorization': `Bearer ${token}`,
-      'Content-Type': 'application/json',
-    }
-  })
-  .then((res) => {
-    if (res.status !== 200) {
-      throw new Error(`${res.status}`);
-    }
-
-    return res.json();
-  })
-  .then((json) => {
+  try {
+    const json = await HttpService.setPurchase(token, books);
+    // @ts-ignore
     dispatch(setPurchaseSuccess(json.message));
-  })
-  .catch((error) => {
+  } catch (error) {
     if (error.message === '400') {
       dispatch(setPurchaseError("Please provide list of ids in format: { books: [...] }"));
-    } else if (error.message === '400') {
+    } else if (error.message === '401') {
       dispatch(setPurchaseError("Unauthorized"));
       localStorage.clear();
       dispatch(updateCurrentUser(false));
     } else {
       dispatch(setPurchaseError("Something went wrong! Unhandled exception"));
     }
-  });
+  }
 };
